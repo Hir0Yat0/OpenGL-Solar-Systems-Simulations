@@ -15,10 +15,10 @@ class Shape {
     unsigned int vbo;
     unsigned int ebo;
     Shape(const std::vector<float> &vertices,const std::vector<unsigned int> &indices);
-    ~Shape();
-    void initShape();
-    void use();
-    void draw();
+    virtual ~Shape();
+    virtual void initShape();
+    virtual void use();
+    virtual void draw();
     template<class T>
     static void groupVertexAttributes(std::vector<T> &out_verticeAttributes, const std::vector<std::vector<T>> &vertexAttributes, const std::vector<unsigned int> &eachAttributesLength);
     void initShapeWithTexture();

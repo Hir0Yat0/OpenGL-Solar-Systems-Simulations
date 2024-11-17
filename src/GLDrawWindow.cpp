@@ -185,7 +185,7 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,
     return 0;
 }
 
-int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces){    
+int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds){    
 
     glEnable(GL_DEPTH_TEST);
 
@@ -215,12 +215,12 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
 
         shaderProgram.use();
         shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
-        for (auto &shapeSurface : shapeSurfaces){
-            // shapeSurface.texture.use();
-            // shapeSurface.shape.use();
-            // shapeSurface.shape.draw();
-            shapeSurface.use();
-            shapeSurface.draw();
+        for (auto &ShapeTextured : ShapeTextureds){
+            // ShapeTextured.texture.use();
+            // ShapeTextured.shape.use();
+            // ShapeTextured.shape.draw();
+            ShapeTextured.use();
+            ShapeTextured.draw();
         }
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
