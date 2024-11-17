@@ -2,6 +2,7 @@
 #define SHAPE_HPP
 
 #include<vector>
+#include<memory>
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -9,12 +10,13 @@
 class Shape {
     private:
     public:
-    std::vector<float> vertices;
-    std::vector<unsigned int> indices;
+    std::unique_ptr<std::vector<float>> vertices;
+    std::unique_ptr<std::vector<unsigned int>> indices;
     unsigned int vao;
     unsigned int vbo;
     unsigned int ebo;
-    Shape(const std::vector<float> &vertices,const std::vector<unsigned int> &indices);
+    // Shape(const std::vector<float> &vertices,const std::vector<unsigned int> &indices);
+    Shape(std::unique_ptr<std::vector<float>> &vertices,std::unique_ptr<std::vector<unsigned int>> &indices);
     virtual ~Shape();
     virtual void initShape();
     virtual void use();

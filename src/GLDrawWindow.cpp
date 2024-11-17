@@ -185,54 +185,54 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,
     return 0;
 }
 
-int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds){    
+// int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds){    
 
-    glEnable(GL_DEPTH_TEST);
+//     glEnable(GL_DEPTH_TEST);
 
-    std::cerr << "Starting Rendering!" << "\n";
+//     std::cerr << "Starting Rendering!" << "\n";
 
-    // uncomment this call to draw in wireframe polygons.
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//     // uncomment this call to draw in wireframe polygons.
+//     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    const auto startTime = std::chrono::system_clock::now();
+//     const auto startTime = std::chrono::system_clock::now();
 
-    // render loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
-    {
-        // input
-        // -----
-        // std::cerr << "Processing Input" << "\n";
-        // processInput(window);
-        this->processInput();
+//     // render loop
+//     // -----------
+//     while (!glfwWindowShouldClose(window))
+//     {
+//         // input
+//         // -----
+//         // std::cerr << "Processing Input" << "\n";
+//         // processInput(window);
+//         this->processInput();
 
-        // render
-        // ------
-        // std::cerr << "Clearing Color" << "\n";
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        // std::cerr << "Clearing Color" << "\n";
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//         // render
+//         // ------
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shaderProgram.use();
-        shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
-        for (auto &ShapeTextured : ShapeTextureds){
-            // ShapeTextured.texture.use();
-            // ShapeTextured.shape.use();
-            // ShapeTextured.shape.draw();
-            ShapeTextured.use();
-            ShapeTextured.draw();
-        }
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
-        // std::cerr << "Swapping Buffers" << "\n";
-        glfwSwapBuffers(window);
-        // std::cerr << "Polling Events" << "\n";
-        glfwPollEvents();
-    }
+//         shaderProgram.use();
+//         shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
+//         for (auto &ShapeTextured : ShapeTextureds){
+//             // ShapeTextured.texture.use();
+//             // ShapeTextured.shape.use();
+//             // ShapeTextured.shape.draw();
+//             ShapeTextured.use();
+//             ShapeTextured.draw();
+//         }
+//         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+//         // -------------------------------------------------------------------------------
+//         // std::cerr << "Swapping Buffers" << "\n";
+//         glfwSwapBuffers(window);
+//         // std::cerr << "Polling Events" << "\n";
+//         glfwPollEvents();
+//     }
 
-    std::cerr << "Done Rendering!" << "\n";
+//     std::cerr << "Done Rendering!" << "\n";
 
-    /* Clean Ups Done In Deconstructors */
+//     /* Clean Ups Done In Deconstructors */
 
-    return 0;
-}
+//     return 0;
+// }

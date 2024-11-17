@@ -27,7 +27,7 @@ public:
     ~GLDrawWindow();
     int drawWindow(Shader &shaderProgram, Shape & shape,const std::optional<Texture> & texture);
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
-    int drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds)    ;
+    // int drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds)    ;
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();
