@@ -22,17 +22,16 @@ class DrawableObject {
     std::unique_ptr<std::vector<std::optional<std::unique_ptr<Shape>>>> shapes;
     std::unique_ptr<std::vector<std::optional<std::unique_ptr<Shader>>>> shaders;
     std::unique_ptr<std::vector<std::optional<std::unique_ptr<Texture>>>> textures;    
-    
     DrawableObject(
         std::unique_ptr<std::vector<std::optional<std::unique_ptr<Shape>>>> &shapes,
         std::unique_ptr<std::vector<std::optional<std::unique_ptr<Shader>>>> &shaders,
         std::unique_ptr<std::vector<std::optional<std::unique_ptr<Texture>>>> &textures
     );
-    DrawableObject(
-        std::vector<std::optional<std::unique_ptr<Shape>>> &shapes,
-        std::vector<std::optional<std::unique_ptr<Shader>>> &shaders,
-        std::vector<std::optional<std::unique_ptr<Texture>>> &textures
-    );
+    // DrawableObject(
+    //     std::vector<std::optional<std::unique_ptr<Shape>>> &shapes,
+    //     std::vector<std::optional<std::unique_ptr<Shader>>> &shaders,
+    //     std::vector<std::optional<std::unique_ptr<Texture>>> &textures
+    // );
     virtual ~DrawableObject();    
 
     virtual void use(size_t idx);

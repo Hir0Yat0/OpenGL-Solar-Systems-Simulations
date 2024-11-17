@@ -11,16 +11,16 @@ DrawableObject::DrawableObject(
 {
 }
 
-DrawableObject::DrawableObject(
-    std::vector<std::optional<std::unique_ptr<Shape>>> &shapes, 
-    std::vector<std::optional<std::unique_ptr<Shader>>> &shaders, 
-    std::vector<std::optional<std::unique_ptr<Texture>>> &textures
-):
-    shapes{std::make_unique<std::vector<std::optional<std::unique_ptr<Shape>>>>(shapes)},
-    shaders{std::make_unique<std::vector<std::optional<std::unique_ptr<Shader>>>>(shaders)},
-    textures{std::make_unique<std::vector<std::optional<std::unique_ptr<Texture>>>>(textures)}
-{
-}
+// DrawableObject::DrawableObject(
+//     std::vector<std::optional<std::unique_ptr<Shape>>> &shapes, 
+//     std::vector<std::optional<std::unique_ptr<Shader>>> &shaders, 
+//     std::vector<std::optional<std::unique_ptr<Texture>>> &textures
+// ):
+//     shapes{std::make_unique<std::vector<std::optional<std::unique_ptr<Shape>>>>(shapes)},
+//     shaders{std::make_unique<std::vector<std::optional<std::unique_ptr<Shader>>>>(shaders)},
+//     textures{std::make_unique<std::vector<std::optional<std::unique_ptr<Texture>>>>(textures)}
+// {
+// }
 
 DrawableObject::~DrawableObject()
 {
@@ -55,29 +55,53 @@ void DrawableObject::draw()
     auto shapesIter = this->shapes.get()->begin();
     auto shadersIter = this->shaders.get()->begin();
     auto texturesIter = this->textures.get()->begin();
+
     const auto shapesIterEnd = this->shapes.get()->end();
     const auto shadersIterEnd = this->shaders.get()->end();
     const auto texturesIterEnd = this->textures.get()->end();
-    if (shadersIter != shadersIterEnd){
-        auto shader = shadersIter;
-        if ((*shader).has_value()){
-            (*shader).value().get()->use();
+
+    bool shapesIterDone{false};
+    bool shadersIterDone{false};
+    bool texturesIterDone{false};
+
+    while (!(shapesIterDone && shadersIterDone && texturesIterDone)){
+
+        if (!shadersIterDone){
+            if (shadersIter != shadersIterEnd){
+                shadersIter;
+                if ((*shadersIter).has_value()){
+                    (*shadersIter).value().get()->use();
+                }
+                shadersIter++;
+            }
+            else {
+                shadersIterDone = true;
+            }
         }
-        shadersIter++;
-    }
-    if (texturesIter != texturesIterEnd){
-        auto texture = texturesIter;
-        if ((*texture).has_value()){
-            (*texture).value().get()->use();
+        if (!texturesIterDone){
+            if (texturesIter != texturesIterEnd){
+                texturesIter;
+                if ((*texturesIter).has_value()){
+                    (*texturesIter).value().get()->use();
+                }
+                texturesIter++;
+            }
+            else{
+                texturesIterDone = true;
+            }
         }
-        texturesIter++;
-    }
-    if (shapesIter != shapesIterEnd){
-        auto shape = shapesIter;
-        if ((*shape).has_value()){
-            (*shape).value().get()->use();
-            (*shape).value().get()->draw();
+        if (!shapesIterDone){
+            if (shapesIter != shapesIterEnd){
+                shapesIter;
+                if ((*shapesIter).has_value()){
+                    (*shapesIter).value().get()->use();
+                    (*shapesIter).value().get()->draw();
+                }
+                shapesIter++;
+            }
+            else{
+                shadersIterDone = true;
+            }
         }
-        shapesIter++;
     }
 }
