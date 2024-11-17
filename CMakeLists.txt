@@ -22,8 +22,8 @@ add_executable(sss
             src/Texture.hpp
             src/TextureLoader.cpp
             src/TextureLoader.hpp
-            # src/DrawableObject.cpp
-            # src/DrawableObject.hpp
+            src/DrawableObject.cpp
+            src/DrawableObject.hpp
 )
 
 # target_compile_options(sss PRIVATE -Werror -Wextra -g -std=c++23)
