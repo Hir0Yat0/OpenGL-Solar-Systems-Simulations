@@ -11,6 +11,7 @@
 #include "Shape.hpp"
 #include "Texture.hpp"
 #include "ShapeTextured.hpp"
+#include "DrawableObject.hpp"
 
 class GLDrawWindow
 {
@@ -28,6 +29,7 @@ public:
     int drawWindow(Shader &shaderProgram, Shape & shape,const std::optional<Texture> & texture);
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
     // int drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds)    ;
+    int drawWindow(DrawableObject &obj);
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();

@@ -24,6 +24,16 @@ add_executable(sss
             src/TextureLoader.hpp
             src/DrawableObject.cpp
             src/DrawableObject.hpp
+            src/DrawableUnit.cpp
+            src/DrawableUnit.hpp
+            src/SphereFactory.cpp
+            src/SphereFactory.hpp
+            src/ShapePresets.cpp
+            src/ShapePresets.hpp
+            src/TestSpherePreview.cpp
+            src/TestSpherePreview.hpp
+            src/Vec3D.hpp
+            src/Utils.hpp
 )
 
 # target_compile_options(sss PRIVATE -Werror -Wextra -g -std=c++23)

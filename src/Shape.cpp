@@ -2,7 +2,7 @@
 
 #include<algorithm>
 
-Shape::Shape(std::unique_ptr<std::vector<float>>& vertices, std::unique_ptr<std::vector<unsigned int>>& indices) 
+Shape::Shape(std::unique_ptr<std::vector<float>> vertices, std::unique_ptr<std::vector<unsigned int>> indices) 
 : vertices{std::move(vertices)}, indices{std::move(indices)}, vao{}, ebo{}, vbo{}
 {
     // if (!withTextures){
