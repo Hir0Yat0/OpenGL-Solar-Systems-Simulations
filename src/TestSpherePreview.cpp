@@ -36,9 +36,17 @@ int TestSpherePreview::testDrawSphere() {
     auto obj = DrawableObject(std::move(units));
     // Utils::printVector(*obj.drawableUnits.get()->at(0).get()->shape.value().get()->vertices);
     // Utils::printVector(*obj.drawableUnits.get()->at(0).get()->shape.value().get()->indices);
-    for (unsigned int i = 0; i < obj.drawableUnits.get()->at(0).get()->shape.value().get()->vertices.get()->size();i += 5){
-        std::cout << obj.drawableUnits.get()->at(0).get()->shape.value().get()->vertices.get()->at(i) << ", ";
-    }
-    std::cout << "\n";
+    // for (unsigned int i = 0; i < obj.drawableUnits.get()->at(0).get()->shape.value().get()->vertices.get()->size();i += 5){
+    //     std::cout << obj.drawableUnits.get()->at(0).get()->shape.value().get()->vertices.get()->at(i) << ", ";
+    // }
+    obj.broadcastFunctionToAllDrawableUnits([](DrawableUnit& drawableUnit){
+        std::cout << "[" << "\n";
+        for (unsigned int i = 0; i < drawableUnit.shape.value().get()->vertices.get()->size();i += 5){
+            std::cout << drawableUnit.shape.value().get()->vertices.get()->at(i) << ", ";
+        }
+        std::cout << "\n]" << "\n";
+        std::cout << "\n";
+    });
+    // std::cout << "\n";
     return window.drawWindow(obj);
 }
