@@ -2,8 +2,8 @@
 
 #include<algorithm>
 
-Shape::Shape(const std::vector<float>& vertices, const std::vector<unsigned int>& indices) 
-: vertices{vertices}, indices{indices}, vao{}, ebo{}, vbo{}
+Shape::Shape(std::unique_ptr<std::vector<float>> vertices, std::unique_ptr<std::vector<unsigned int>> indices) 
+: vertices{std::move(vertices)}, indices{std::move(indices)}, vao{}, ebo{}, vbo{}
 {
     // if (!withTextures){
     //     this->initShape();
@@ -30,10 +30,10 @@ void Shape::initShape() {
     glGenBuffers(1,&this->ebo);
     glGenBuffers(1,&this->vbo);
     glBindBuffer(GL_ARRAY_BUFFER,this->vbo);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(float)*vertices.size(),&vertices[0],GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(float)*vertices.get()->size(),&vertices.get()[0],GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(unsigned int)*this->indices.size(),&this->indices[0],GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(unsigned int)*this->indices.get()->size(),&this->indices.get()[0],GL_STATIC_DRAW);
     
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)0);
     glEnableVertexAttribArray(0);
@@ -58,10 +58,10 @@ void Shape::initShapeWithTexture() {
     glGenBuffers(1,&this->ebo);
     glGenBuffers(1,&this->vbo);
     glBindBuffer(GL_ARRAY_BUFFER,this->vbo);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(float)*vertices.size(),&vertices[0],GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(float)*vertices.get()->size(),&vertices.get()[0],GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(unsigned int)*this->indices.size(),&this->indices[0],GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(unsigned int)*this->indices.get()->size(),&this->indices.get()[0],GL_STATIC_DRAW);
     
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,5*sizeof(float),(void*)0);
     glEnableVertexAttribArray(0);
@@ -86,7 +86,7 @@ void Shape::use() {
 
 void Shape::draw() {
     this->use();
-    glDrawElements(GL_TRIANGLES,this->indices.size(),GL_UNSIGNED_INT,0);
+    glDrawElements(GL_TRIANGLES,this->indices.get()->size(),GL_UNSIGNED_INT,0);
 }
 
 template<class T>

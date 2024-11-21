@@ -13,13 +13,27 @@ add_executable(sss
             src/Shader.hpp
             src/Shape.cpp
             src/Shape.hpp
-            src/ShapeSurface.cpp
-            src/ShapeSurface.hpp
+            src/ShapeTextured.cpp
+            src/ShapeTextured.hpp
+            src/ShapeNoTexture.cpp
+            src/ShapeNoTexture.hpp
             src/stb_image.h
             src/Texture.cpp
             src/Texture.hpp
             src/TextureLoader.cpp
             src/TextureLoader.hpp
+            src/DrawableObject.cpp
+            src/DrawableObject.hpp
+            src/DrawableUnit.cpp
+            src/DrawableUnit.hpp
+            src/SphereFactory.cpp
+            src/SphereFactory.hpp
+            src/ShapePresets.cpp
+            src/ShapePresets.hpp
+            src/TestSpherePreview.cpp
+            src/TestSpherePreview.hpp
+            src/Vec3D.hpp
+            src/Utils.hpp
 )
 
 # target_compile_options(sss PRIVATE -Werror -Wextra -g -std=c++23)
