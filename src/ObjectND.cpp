@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include<cmath>
 template<int N>
-ObjectND<N>::ObjectND(const std::array<float, N> &position, const std::array<float, N> &orientation)
+ObjectND<N>::ObjectND(const std::array<float, N> &position, const std::array<float, N> &orientation, const std::array<float,N> &scale)
 : 
     position{position}, 
     velocity{std::array<float,N>{0.0f}}, 
@@ -11,7 +11,7 @@ ObjectND<N>::ObjectND(const std::array<float, N> &position, const std::array<flo
     orientation{orientation},
     angularVelocity{std::array<float,N>{0.0f}},
     angularAcceleration{std::array<float,N>{0.0f}},
-    scale{std::array<float,N>{0.0f}},
+    scale{scale},
     scaleVelocity{std::array<float,N>{0.0f}},
     scaleAcceleration{std::array<float,N>{0.0f}}
 {

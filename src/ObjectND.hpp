@@ -24,7 +24,7 @@ class ObjectND {
     std::array<float,N> scaleVelocity;
     std::array<float,N> scaleAcceleration;
 
-    ObjectND(const std::array<float,N> &position=std::array<float,N>{0.0f},const std::array<float,N> &orientation=std::array<float,N>{0.0f});
+    ObjectND(const std::array<float,N> &position=std::array<float,N>{0.0f},const std::array<float,N> &orientation=std::array<float,N>{0.0f}, const std::array<float,N> &scale=std::array<float,N>{1.0f});
     void update(const std::chrono::milliseconds &deltaTime);
 
 };
