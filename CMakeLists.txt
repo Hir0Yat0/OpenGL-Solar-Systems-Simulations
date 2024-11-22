@@ -40,6 +40,10 @@ add_executable(sss
             src/RenderGroup.cpp
             src/RenderGroupManager.hpp
             src/RenderGroupManager.cpp
+            src/TestRenderGroup.hpp
+            src/TestRenderGroup.cpp
+            src/FrameManager.hpp
+            src/FrameManager.cpp
 
 )
 

@@ -2,6 +2,9 @@
 
 #include<string>
 #include<format>
+#include<chrono>
+
+#include "FrameManager.hpp"
 
 template<int OBJ_ND>
 RenderGroup<OBJ_ND>::RenderGroup(
@@ -38,6 +41,8 @@ void RenderGroup<OBJ_ND>::render(void){
     if (objects.get() != nullptr){
         for (const auto & object : (*objects.get())){
             for (int i = 0; i < OBJ_ND; i++){
+                this->shader.get()->setFloat(std::string("timeMillis"),FrameManager::getCurrentFrameTimestamp());
+                this->shader.get()->setFloat(std::string("deltaTimeMillis"),FrameManager::getDeltaTime());
                 this->shader.get()->setFloat(std::format("vPosition{}",i),object.get().position.at(i));
                 this->shader.get()->setFloat(std::format("vOrientation{}",i),object.get().orientation.at(i));
                 this->shader.get()->setFloat(std::format("vScale{}",i),object.get().scale.at(i));
