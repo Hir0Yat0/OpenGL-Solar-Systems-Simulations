@@ -34,6 +34,13 @@ add_executable(sss
             src/TestSpherePreview.hpp
             src/Vec3D.hpp
             src/Utils.hpp
+            src/ObjectND.hpp
+            src/ObjectND.cpp
+            src/RenderGroup.hpp
+            src/RenderGroup.cpp
+            src/RenderGroupManager.hpp
+            src/RenderGroupManager.cpp
+
 )
 
 # target_compile_options(sss PRIVATE -Werror -Wextra -g -std=c++23)

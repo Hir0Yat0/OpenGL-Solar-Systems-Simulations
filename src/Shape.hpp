@@ -18,6 +18,7 @@ class Shape {
     Shape() = default;
     // Shape(const std::vector<float> &vertices,const std::vector<unsigned int> &indices);
     Shape(std::unique_ptr<std::vector<float>> vertices,std::unique_ptr<std::vector<unsigned int>> indices);
+    // Shape(std::unique_ptr<std::vector<float>> vertices,std::unique_ptr<std::vector<unsigned int>> indices);
     virtual ~Shape();
     virtual void initShape();
     virtual void use();
