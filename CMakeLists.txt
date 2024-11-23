@@ -4,6 +4,8 @@ project(SSS VERSION 0.1.0 DESCRIPTION "OpenGL Solar Systems Simulations" LANGUAG
 
 # find_library(LIBGLFW3DLL )
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 add_executable(sss 
             src/main.cpp 
             src/glad.c
@@ -34,18 +36,75 @@ add_executable(sss
             src/TestSpherePreview.hpp
             src/Vec3D.hpp
             src/Utils.hpp
-            src/ObjectND.hpp
-            src/ObjectND.cpp
-            src/RenderGroup.hpp
-            src/RenderGroup.cpp
-            src/RenderGroupManager.hpp
-            src/RenderGroupManager.cpp
-            src/TestRenderGroup.hpp
-            src/TestRenderGroup.cpp
             src/FrameManager.hpp
             src/FrameManager.cpp
+            src/IDManager.hpp
+            src/IDManager.cpp
+            # src/ObjectND.hpp
+            # src/ObjectND.cpp
+            src/Object3D.hpp
+            src/Object3D.cpp
+            # src/RenderGroup.hpp
+            # src/RenderGroup.cpp
+            src/RenderGroup3D.hpp
+            src/RenderGroup3D.cpp
+            # src/RenderGroupManager.hpp
+            # src/RenderGroupManager.cpp
+            src/RenderGroup3DManager.hpp
+            src/RenderGroup3DManager.cpp
+            src/SphereObjectFactory.hpp
+            src/SphereObjectFactory.cpp
+            src/TestRenderGroup.hpp
+            src/TestRenderGroup.cpp
 
 )
+
+# add_executable(sss 
+#             src/DrawableObject.cpp
+#             src/DrawableObject.hpp
+#             src/DrawableUnit.cpp
+#             src/DrawableUnit.hpp
+#             src/FrameManager.cpp
+#             src/FrameManager.hpp
+#             src/glad.c
+#             src/GLDrawWindow.cpp
+#             src/GLDrawWindow.hpp
+#             src/IDManager.cpp
+#             src/IDManager.hpp
+#             src/main.cpp
+#             src/ObjectND.cpp
+#             src/ObjectND.hpp
+#             src/RenderGroup.cpp
+#             src/RenderGroup.hpp
+#             src/RenderGroupManager.cpp
+#             src/RenderGroupManager.hpp
+#             src/Shader.cpp
+#             src/Shader.hpp
+#             src/Shape.cpp
+#             src/Shape.hpp
+#             src/ShapeNoTexture.cpp
+#             src/ShapeNoTexture.hpp
+#             src/ShapePresets.cpp
+#             src/ShapePresets.hpp
+#             src/ShapeTextured.cpp
+#             src/ShapeTextured.hpp
+#             src/SphereFactory.cpp
+#             src/SphereFactory.hpp
+#             src/SphereObjectFactory.cpp
+#             src/SphereObjectFactory.hpp
+#             src/stb_image.h
+#             src/TestRenderGroup.cpp
+#             src/TestRenderGroup.hpp
+#             src/TestSpherePreview.cpp
+#             src/TestSpherePreview.hpp
+#             src/Texture.cpp
+#             src/Texture.hpp
+#             src/TextureLoader.cpp
+#             src/TextureLoader.hpp
+#             src/Utils.hpp
+#             src/Vec3D.hpp
+
+# )
 
 # target_compile_options(sss PRIVATE -Werror -Wextra -g -std=c++23)
 target_compile_options(sss PRIVATE -Werror -Wextra -g)

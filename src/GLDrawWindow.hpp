@@ -6,12 +6,18 @@
 
 #include<vector>
 #include<optional>
+#include<memory>
+#include <chrono>
 
 #include "Shader.hpp"
 #include "Shape.hpp"
 #include "Texture.hpp"
 #include "ShapeTextured.hpp"
 #include "DrawableObject.hpp"
+#include "RenderGroup3D.hpp"
+#include "RenderGroup3DManager.hpp"
+#include "FrameManager.hpp"
+#include "Object3D.hpp"
 
 class GLDrawWindow
 {
@@ -30,6 +36,7 @@ public:
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
     // int drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds)    ;
     int drawWindow(DrawableObject &obj);
+    int drawWindow(std::shared_ptr<RenderGroup3DManager> renderGroupManager);
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();

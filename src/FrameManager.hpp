@@ -4,9 +4,9 @@
 // #include "FrameManager.hpp"
 #include<chrono>
 
-class FrameManager {
+namespace FrameManager {
 
-    private:
+    // private:
 
     static std::chrono::time_point<std::chrono::steady_clock> startTimeTimestamp;
     static std::chrono::time_point<std::chrono::steady_clock> prevFrameTimestamp;
@@ -15,14 +15,18 @@ class FrameManager {
     static std::chrono::milliseconds deltaTimeSinceStartPrev;
     static std::chrono::milliseconds deltaTime;
 
-    public:
+    // public:
 
-    FrameManager() = delete;
-    static const std::chrono::milliseconds& getDeltaTime(void);
-    static const std::chrono::milliseconds& getCurrentFrameTimestamp(void);
-    static const std::chrono::milliseconds& getPrevFrameTimestamp(void);
-    static void updateFrame(void);
-    static void init(void);
+    // FrameManager() = delete;
+    // virtual void nonconstructible(void) = 0;
+    // [[nodiscard]]
+    // static const std::chrono::milliseconds& getDeltaTime(void);
+    // [[nodiscard]]
+    // static const std::chrono::milliseconds& getCurrentFrameTimestamp(void);
+    // [[nodiscard]]
+    // static const std::chrono::milliseconds& getPrevFrameTimestamp(void);
+    void updateFrame(void);
+    void init(void);
 
 };
 

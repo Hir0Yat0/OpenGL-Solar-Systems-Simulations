@@ -13,6 +13,7 @@
 #include"Shader.hpp"
 #include"Texture.hpp"
 #include "DrawableUnit.hpp"
+#include "FrameManager.hpp"
 
 class DrawableObject {
 

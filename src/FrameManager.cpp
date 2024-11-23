@@ -1,16 +1,16 @@
 #include "FrameManager.hpp"
 
-const std::chrono::milliseconds& FrameManager::getDeltaTime(void) {
-    return FrameManager::deltaTime;
-}
+// const std::chrono::milliseconds& FrameManager::getDeltaTime(void) {
+//     return FrameManager::deltaTime;
+// }
 
-const std::chrono::milliseconds& FrameManager::getCurrentFrameTimestamp(void) {
-    return FrameManager::deltaTimeSinceStart;
-}
+// const std::chrono::milliseconds& FrameManager::getCurrentFrameTimestamp(void) {
+//     return FrameManager::deltaTimeSinceStart;
+// }
 
-const std::chrono::milliseconds& FrameManager::getPrevFrameTimestamp(void) {
-    return FrameManager::deltaTimeSinceStartPrev;
-}
+// const std::chrono::milliseconds& FrameManager::getPrevFrameTimestamp(void) {
+//     return FrameManager::deltaTimeSinceStartPrev;
+// }
 
 void FrameManager::updateFrame(void) {
     const auto now = std::chrono::steady_clock::now();

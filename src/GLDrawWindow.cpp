@@ -1,5 +1,4 @@
-#include "GLDrawWindow.hpp"
-#include <chrono>
+#include "GLDrawWindow.hpp" 
 
 GLDrawWindow::GLDrawWindow(/* args */)
 : SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
@@ -263,6 +262,47 @@ int GLDrawWindow::drawWindow(DrawableObject &obj) {
         // }
         // std::cout << "Drawing!" << "\n";
         obj.draw();
+        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // -------------------------------------------------------------------------------
+        // std::cerr << "Swapping Buffers" << "\n";
+        glfwSwapBuffers(window);
+        // std::cerr << "Polling Events" << "\n";
+        glfwPollEvents();
+    }
+
+    std::cerr << "Done Rendering!" << "\n";
+
+    /* Clean Ups Done In Deconstructors */
+
+    // return 0;
+
+    return 0;
+}
+
+int GLDrawWindow::drawWindow(std::shared_ptr<RenderGroup3DManager> renderGroupManager) {
+
+
+    glEnable(GL_DEPTH_TEST);
+
+    std::cerr << "Starting Rendering!" << "\n";
+
+    // const auto startTime = std::chrono::system_clock::now();
+    FrameManager::init();
+    
+    while (!glfwWindowShouldClose(this->window)){
+        FrameManager::updateFrame();
+        this->processInput();
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // const auto now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0;
+        // update and render objects
+        Object3D::updateAllObjects();
+        if (renderGroupManager){
+            (*renderGroupManager).renderAll();
+        }
+        // obj.setFloatAll("time",now);
+        // std::cerr << "Drawing!" << "\n";
+        // obj.draw();
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         // std::cerr << "Swapping Buffers" << "\n";

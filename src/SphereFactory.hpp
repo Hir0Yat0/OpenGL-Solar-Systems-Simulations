@@ -6,6 +6,8 @@
 // #include "SphereFactory.hpp"
 #include"Shape.hpp"
 
+#define SPHERE_RENDER_GROUP_ID 1
+
 class SphereFactory {
 
     private:
@@ -24,6 +26,8 @@ class SphereFactory {
     SphereFactory(const float center[3], float radius=5.0f, unsigned int stackCountPerSector=20U,unsigned int sectorCountPerStack=20U,bool textured = true);
     std::unique_ptr<Shape> makeSphere() const;
     std::unique_ptr<Shape> makeSphere(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const;
+    std::unique_ptr<Shape> getBaseSphere() const;
+
 
 
 };

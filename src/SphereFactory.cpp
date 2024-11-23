@@ -93,5 +93,20 @@ std::unique_ptr<Shape> SphereFactory::makeSphere(const float center[3], float ra
         shape.get()->initShape();
     }
     return std::move(shape);
-};
+}
+std::unique_ptr<Shape> SphereFactory::getBaseSphere() const {
+    
+    const float center[3] = {0.0f,0.0f,0.0f};
+    auto vertices = this->getVertices(center,1.0f,20,20);
+    auto indices = this->getIndices(center,1.0f,20,20);
+    std::unique_ptr<Shape> shape = std::make_unique<Shape>(std::move(vertices),std::move(indices));
+    if (this->textured){
+        shape.get()->initShapeWithTexture();
+    }
+    else {
+        shape.get()->initShape();
+    }
+    // return std::move(shape);
+    return std::move(shape);
 
+};
