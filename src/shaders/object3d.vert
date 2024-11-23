@@ -5,6 +5,9 @@ layout (location = 1) in vec2 aTexCoord;
 
 out vec2 TexCoord;
 
+uniform float timeMillis;
+uniform float deltaTimeMillis;
+
 uniform float vScale0;
 uniform float vScale1;
 uniform float vScale2;
