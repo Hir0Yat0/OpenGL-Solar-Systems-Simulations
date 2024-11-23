@@ -25,25 +25,32 @@ void RenderGroup3DManager::render(int groupid){
         }
     }
 };
-void RenderGroup3DManager::addNewGroup(int id,std::shared_ptr<RenderGroup3D> renderGroup){
+void RenderGroup3DManager::addNewGroup(int groupid,std::shared_ptr<RenderGroup3D> renderGroup){
     if (this->rendergroups.get() == nullptr){
         this->rendergroups = std::make_shared<std::unordered_map<int,std::shared_ptr<RenderGroup3D>>>();
     }
-    (*this->rendergroups)[id] = renderGroup;
+    (*this->rendergroups)[groupid] = renderGroup;
 };
-void RenderGroup3DManager::addToGroup(int id, std::shared_ptr<Object3D> object){
+void RenderGroup3DManager::addToGroup(int groupid, std::shared_ptr<Object3D> object){
     if (this->rendergroups.get() == nullptr){
         this->rendergroups = std::make_shared<std::unordered_map<int,std::shared_ptr<RenderGroup3D>>>();
     }
-    auto renderGroup = (*this->rendergroups)[id];
+    auto renderGroup = (*this->rendergroups)[groupid];
     if (renderGroup){
         (*renderGroup).add(object);
     }
 };
-void RenderGroup3DManager::removeGroup(int id){
+void RenderGroup3DManager::removeGroup(int groupid){
     if (this->rendergroups.get() == nullptr){
         this->rendergroups = std::make_shared<std::unordered_map<int,std::shared_ptr<RenderGroup3D>>>();
     }
-    this->rendergroups.get()->erase(id);
+    this->rendergroups.get()->erase(groupid);
+}
+void RenderGroup3DManager::removeFromGroup(int groupid, std::shared_ptr<Object3D> object) {
+    if (this->rendergroups){
+        auto rg = (*this->rendergroups)[groupid];
+        if (rg){
+            (*rg).remove(object);
+        }
+    }
 };
-

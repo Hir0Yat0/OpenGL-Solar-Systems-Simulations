@@ -21,10 +21,10 @@ class RenderGroup3DManager {
     RenderGroup3DManager();
     void renderAll(void);
     void render(int groupid);
-    void addNewGroup(int id, std::shared_ptr<RenderGroup3D> renderGroup);
-    void addToGroup(int id, std::shared_ptr<Object3D> object);
-    void removeGroup(int id);
-    // void removeFromGroup(int id, std::shared_ptr<ObjectND<OBJ_ND>> object);
+    void addNewGroup(int groupid, std::shared_ptr<RenderGroup3D> renderGroup);
+    void addToGroup(int groupid, std::shared_ptr<Object3D> object);
+    void removeGroup(int groupid);
+    void removeFromGroup(int groupid, std::shared_ptr<Object3D> object);
     
 
 };

@@ -3,6 +3,9 @@
 #include<string>
 #include<format>
 #include<chrono>
+#include<memory>
+#include<vector>
+#include<unordered_map>
 
 #include "FrameManager.hpp"
 
@@ -10,7 +13,7 @@ RenderGroup3D::RenderGroup3D(
     std::shared_ptr<Shape> shape, 
     std::shared_ptr<Shader> shader,
     std::shared_ptr<Texture> texture, 
-    std::shared_ptr<std::vector<std::shared_ptr<Object3D>>> objects
+    std::shared_ptr<std::unordered_map<size_t,std::shared_ptr<Object3D>>> objects
 ):
     shape{shape}, shader{shader}, texture{texture}, objects{objects}
 {
@@ -21,7 +24,7 @@ RenderGroup3D::RenderGroup3D(
     std::shared_ptr<Shader> shader, 
     std::shared_ptr<Texture> texture 
 ) :
-    shape{shape}, shader{shader}, texture{texture}, objects{std::make_shared<std::vector<std::shared_ptr<Object3D>>>()} //N
+    shape{shape}, shader{shader}, texture{texture}, objects{std::make_shared<std::unordered_map<size_t,std::shared_ptr<Object3D>>>()} //N
 {
 
 };    
@@ -35,10 +38,10 @@ void RenderGroup3D::render(void){
     if (this->shape.get() != nullptr){
         this->shape.get()->use();
     }
-    if (objects.get() != nullptr){
-        for (const auto & object : (*objects.get())){
-            for (int i = 0; i < 3; i++){
-                if (object){
+    if (objects.get() != nullptr && this->shader.get() != nullptr){
+        for (const auto & [id,object] : (*objects.get())){
+            if (object){
+                for (int i = 0; i < 3; i++){
                     this->shader.get()->setFloat(std::string("timeMillis"),static_cast<float>(FrameManager::deltaTimeSinceStart.count()));
                     this->shader.get()->setFloat(std::string("deltaTimeMillis"),static_cast<float>(FrameManager::deltaTime.count()));
                     this->shader.get()->setFloat(std::format("vPosition{}",i),(*object).position.at(i));
@@ -51,7 +54,16 @@ void RenderGroup3D::render(void){
 };
 void RenderGroup3D::add(std::shared_ptr<Object3D> object){
     if (this->objects.get() == nullptr){
-        this->objects = std::make_shared<std::vector<std::shared_ptr<Object3D>>>();
+        this->objects = std::make_shared<std::unordered_map<size_t,std::shared_ptr<Object3D>>>();
     }
-    this->objects.get()->push_back(object);
+    if (object){
+        (*this->objects)[(*object).id] = object;
+    }
+}
+void RenderGroup3D::remove(std::shared_ptr<Object3D> object) {
+    if (this->objects){
+        if (object){
+            (*this->objects).erase((*object).id);
+        }
+    }
 };
