@@ -15,7 +15,7 @@ class Object3D {
 
     private:    
 
-    static inline std::unordered_map<size_t,std::reference_wrapper<Object3D>> objs{};
+    static inline std::unordered_map<size_t,Object3D *> objs{};
     static inline IDManager idManager{};
 
     public:
@@ -31,10 +31,11 @@ class Object3D {
     std::array<float,3> scaleVelocity;
     std::array<float,3> scaleAcceleration;
 
-    Object3D(const std::array<float,3> &position=std::array<float,3>{0.0f},const std::array<float,3> &orientation=std::array<float,3>{0.0f}, const std::array<float,3> &scale=std::array<float,3>{1.0f});
+    Object3D(const std::array<float,3> &position=std::array<float,3>{0.0f,0.0f,0.0f},const std::array<float,3> &orientation=std::array<float,3>{0.0f,0.0f,0.0f}, const std::array<float,3> &scale=std::array<float,3>{1.0f,1.0f,1.0f});
     virtual ~Object3D();
     virtual void update(const std::chrono::milliseconds &deltaTime);
     static void updateAllObjects(void);
+    virtual void printObjectInfo(void) const;
 
 };
 
