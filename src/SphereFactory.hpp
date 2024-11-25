@@ -13,6 +13,7 @@ class SphereFactory {
     private:
 
     std::unique_ptr<std::vector<float>> getVertices(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const;
+    std::unique_ptr<std::vector<float>> getVerticesWithTextures(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const;
     std::unique_ptr<std::vector<unsigned int>> getIndices(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const;
 
     public:

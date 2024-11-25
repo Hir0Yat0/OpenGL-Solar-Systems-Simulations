@@ -3,19 +3,28 @@
 #define _USE_MATH_DEFINES
 #include<cmath>
 
+#include<iostream>
+#include"Utils.hpp"
+
 std::unique_ptr<std::vector<float>> SphereFactory::getVertices(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const {
     // auto vertices = std::make_unique<std::vector<float>>(new std::vector<float>());
     auto vertices = std::make_unique<std::vector<float>>();
-    constexpr int numElementPerVertices{5};
+    // if (this->textured){
+    //     constexpr int numElementPerVertices{5};
+    //     vertices.get()->reserve(stackCountPerSector*sectorCountPerStack*numElementPerVertices);
+    // }
+    // else {
+    constexpr int numElementPerVertices{3};
     vertices.get()->reserve(stackCountPerSector*sectorCountPerStack*numElementPerVertices);
+    // }
 
     const float stackStepSize{static_cast<float>(M_PI / stackCountPerSector)};
     const float sectorStepSize{static_cast<float>(2*M_PI / sectorCountPerStack)};
 
     for (unsigned int stack_i = 0; stack_i < stackCountPerSector; stack_i++){
         for (unsigned int sector_i = 0; sector_i < sectorCountPerStack; sector_i++){
-            const float phi = static_cast<float>(stackStepSize * stack_i);
-            const float theta = static_cast<float>(sectorStepSize * sector_i);
+            const float phi = static_cast<float>(stackStepSize * static_cast<float>(stack_i));
+            const float theta = static_cast<float>(sectorStepSize * static_cast<float>(sector_i));
             const float rsin_phi = radius * static_cast<float>(sinf(phi));
             const float vertex_x = center[0] + rsin_phi * cosf(theta);
             const float vertex_y = center[1] + rsin_phi * sinf(theta);
@@ -23,12 +32,53 @@ std::unique_ptr<std::vector<float>> SphereFactory::getVertices(const float cente
             vertices.get()->push_back(vertex_x);
             vertices.get()->push_back(vertex_y);
             vertices.get()->push_back(vertex_z);
-            if (this->textured){
-                vertices.get()->push_back(float(sector_i) / float(sectorCountPerStack)); // texture_coords_x
-                vertices.get()->push_back(float(stack_i) / float(stackCountPerSector)); // texture_coords_y
-            }
+            // if (this->textured){
+            //     vertices.get()->push_back(float(sector_i) / float(sectorCountPerStack)); // texture_coords_x
+            //     vertices.get()->push_back(float(stack_i) / float(stackCountPerSector)); // texture_coords_y
+            // }   
         }
     }
+
+    Utils::printVectorErr((*vertices));
+
+    return std::move(vertices);
+}
+
+std::unique_ptr<std::vector<float>> SphereFactory::getVerticesWithTextures(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const {
+    // auto vertices = std::make_unique<std::vector<float>>(new std::vector<float>());
+    auto vertices = std::make_unique<std::vector<float>>();
+    // if (this->textured){
+    constexpr int numElementPerVertices{5};
+    vertices.get()->reserve(stackCountPerSector*sectorCountPerStack*numElementPerVertices);
+    // }
+    // else {
+    //     constexpr int numElementPerVertices{3};
+    //     vertices.get()->reserve(stackCountPerSector*sectorCountPerStack*numElementPerVertices);
+    // }
+
+    const float stackStepSize{static_cast<float>(M_PI / stackCountPerSector)};
+    const float sectorStepSize{static_cast<float>(2*M_PI / sectorCountPerStack)};
+
+    for (unsigned int stack_i = 0; stack_i < stackCountPerSector; stack_i++){
+        for (unsigned int sector_i = 0; sector_i < sectorCountPerStack; sector_i++){
+            const float phi = static_cast<float>(stackStepSize * static_cast<float>(stack_i));
+            const float theta = static_cast<float>(sectorStepSize * static_cast<float>(sector_i));
+            const float rsin_phi = radius * static_cast<float>(sinf(phi));
+            const float vertex_x = center[0] + rsin_phi * cosf(theta);
+            const float vertex_y = center[1] + rsin_phi * sinf(theta);
+            const float vertex_z = center[2] + radius * cosf(phi);
+            vertices.get()->push_back(vertex_x);
+            vertices.get()->push_back(vertex_y);
+            vertices.get()->push_back(vertex_z);
+            // if (this->textured){
+            vertices.get()->push_back(float(sector_i) / float(sectorCountPerStack)); // texture_coords_x
+            vertices.get()->push_back(float(stack_i) / float(stackCountPerSector)); // texture_coords_y
+            // }   
+        }
+    }
+
+    Utils::printVectorErr((*vertices));
+
     return std::move(vertices);
 }
 
@@ -72,6 +122,8 @@ std::unique_ptr<std::vector<unsigned int>> SphereFactory::getIndices(const float
         indices.get()->push_back(k2_1);
     }
 
+    Utils::printVectorErr((*indices));
+
     return std::move(indices);
 }
 
@@ -82,7 +134,9 @@ std::unique_ptr<Shape> SphereFactory::makeSphere() const{
     return std::move(this->makeSphere(this->center,this->radius, this->stackCountPerSector, this->sectorCountPerStack));
 };
 std::unique_ptr<Shape> SphereFactory::makeSphere(const float center[3], float radius, unsigned int stackCountPerSector, unsigned int sectorCountPerStack) const{
-    std::unique_ptr<std::vector<float>> vertices = this->getVertices(center,radius,stackCountPerSector,sectorCountPerStack);
+    std::unique_ptr<std::vector<float>> vertices = this->textured ?  
+                                        this->getVerticesWithTextures(center,radius,stackCountPerSector,sectorCountPerStack)
+                                        : this->getVertices(center,radius,stackCountPerSector,sectorCountPerStack);
     std::unique_ptr<std::vector<unsigned int>> indices = this->getIndices(center,radius,stackCountPerSector,sectorCountPerStack);
     // std::unique_ptr<Shape> shape = std::make_unique<Shape>(new Shape(std::move(vertices),std::move(indices)));
     std::unique_ptr<Shape> shape = std::make_unique<Shape>(std::move(vertices),std::move(indices));
@@ -97,16 +151,6 @@ std::unique_ptr<Shape> SphereFactory::makeSphere(const float center[3], float ra
 std::unique_ptr<Shape> SphereFactory::getBaseSphere() const {
     
     const float center[3] = {0.0f,0.0f,0.0f};
-    auto vertices = this->getVertices(center,1.0f,20,20);
-    auto indices = this->getIndices(center,1.0f,20,20);
-    std::unique_ptr<Shape> shape = std::make_unique<Shape>(std::move(vertices),std::move(indices));
-    if (this->textured){
-        shape.get()->initShapeWithTexture();
-    }
-    else {
-        shape.get()->initShape();
-    }
-    // return std::move(shape);
-    return std::move(shape);
+    return this->makeSphere(center,1.0f,20,20);
 
 };
