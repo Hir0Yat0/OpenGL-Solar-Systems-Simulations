@@ -16,7 +16,8 @@ int main(){
     // return TestRenderGroup().testRenderGroup();
 
     // TestRenderGroup().testRenderGroup();
-    TestRenderGroup::test();
+    int exitcode = TestRenderGroup::test();
+    return exitcode;
 
-    return 0;
+    // return 0;
 }
