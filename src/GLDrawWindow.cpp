@@ -1,7 +1,7 @@
 #include "GLDrawWindow.hpp" 
 
 GLDrawWindow::GLDrawWindow(/* args */)
-: SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
+: window{nullptr}, SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
 {
     this->initSuccess = this->initGLFWWindow() == 0;
 }
@@ -66,6 +66,7 @@ int GLDrawWindow::initGLFWWindow(){
         glfwTerminate();
         return -1;
     }
+    std::cerr << "Successfully Init Windows!" << "\n";
     glfwMakeContextCurrent(this->window);
     glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
 
@@ -77,6 +78,7 @@ int GLDrawWindow::initGLFWWindow(){
         glfwTerminate();
         return -1;
     }
+    std::cerr << "Successfully Load All OpenGL functions" << "\n";
     return 0;
 }
 
@@ -297,6 +299,7 @@ int GLDrawWindow::drawWindow(std::shared_ptr<RenderGroup3DManager> renderGroupMa
         // const auto now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0;
         // update and render objects
         Object3D::updateAllObjects();
+        std::cout << FrameManager::deltaTimeSinceStart << "\n";
         if (renderGroupManager){
             (*renderGroupManager).renderAll();
         }
