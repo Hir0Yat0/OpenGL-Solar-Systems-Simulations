@@ -32,6 +32,16 @@ public:
     int initSuccess;
     GLDrawWindow(/* args */);
     ~GLDrawWindow();
+
+    /* this makes -Werror=effc++ compiles for GLFWwindow * window; */
+    /* https://stackoverflow.com/a/53892135 */
+
+    GLDrawWindow(const GLDrawWindow&) = delete;              // copy ctor
+    GLDrawWindow(GLDrawWindow&&) = delete;                   // move ctor
+    GLDrawWindow& operator=(const GLDrawWindow&) = delete;   // copy assignment
+    GLDrawWindow& operator=(GLDrawWindow&&) = delete;        // move assignment
+
+
     int drawWindow(Shader &shaderProgram, Shape & shape,const std::optional<Texture> & texture);
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
     // int drawWindow(Shader &shaderProgram, std::vector<ShapeTextured> & ShapeTextureds)    ;
