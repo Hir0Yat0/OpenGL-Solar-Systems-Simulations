@@ -9,6 +9,8 @@
 
 #include "FrameManager.hpp"
 
+#include "Utils.hpp"
+
 RenderGroup3D::RenderGroup3D(
     std::shared_ptr<Shape> shape, 
     std::shared_ptr<Shader> shader,
@@ -41,12 +43,17 @@ void RenderGroup3D::render(void){
     if (objects.get() != nullptr && this->shader.get() != nullptr){
         for (const auto & [id,object] : (*objects.get())){
             if (object){
+                // std::cerr << "Rendering ObjectW: " << (*object).id << "\n";
                 for (int i = 0; i < 3; i++){
                     this->shader.get()->setFloat(std::string("timeMillis"),static_cast<float>(FrameManager::deltaTimeSinceStart.count()));
                     this->shader.get()->setFloat(std::string("deltaTimeMillis"),static_cast<float>(FrameManager::deltaTime.count()));
                     this->shader.get()->setFloat(std::format("vPosition{}",i),(*object).position.at(i));
                     this->shader.get()->setFloat(std::format("vOrientation{}",i),(*object).orientation.at(i));
                     this->shader.get()->setFloat(std::format("vScale{}",i),(*object).scale.at(i));
+                }
+                if (this->shape){
+                    // Utils::printVectorErr((*(*this->shape).vertices));
+                    (*this->shape).draw();
                 }
             }
         }
