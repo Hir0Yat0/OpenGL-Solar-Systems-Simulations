@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.18)
 
 project(SSS VERSION 0.1.0 DESCRIPTION "OpenGL Solar Systems Simulations" LANGUAGES CXX C)
 
+set (CMAKE_CXX_FLAGS "-Weffc++")
+
 # find_library(LIBGLFW3DLL )
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+# set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_executable(sss 
             src/main.cpp 
