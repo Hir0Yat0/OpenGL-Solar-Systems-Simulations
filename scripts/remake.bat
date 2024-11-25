@@ -1,2 +1,1 @@
-CALL .\scripts\clean.bat 
-CALL .\scripts\build.bat
+CALL .\scripts\clean.bat && CALL .\scripts\build.bat

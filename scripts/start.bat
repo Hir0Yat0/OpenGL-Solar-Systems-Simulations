@@ -1,2 +1,1 @@
-CALL .\scripts\build.bat
-CALL .\scripts\run.bat
+CALL .\scripts\build.bat && CALL .\scripts\run.bat
