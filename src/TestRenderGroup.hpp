@@ -11,7 +11,7 @@ class TestRenderGroup {
 
     public:
 
-    static void test();
+    static int test();
 
 };
 
