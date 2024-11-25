@@ -8,12 +8,12 @@ namespace FrameManager {
 
     // private:
 
-    static std::chrono::time_point<std::chrono::steady_clock> startTimeTimestamp;
-    static std::chrono::time_point<std::chrono::steady_clock> prevFrameTimestamp;
-    static std::chrono::time_point<std::chrono::steady_clock> currentFrameTimestamp;
-    static std::chrono::milliseconds deltaTimeSinceStart;
-    static std::chrono::milliseconds deltaTimeSinceStartPrev;
-    static std::chrono::milliseconds deltaTime;
+    inline std::chrono::time_point<std::chrono::steady_clock> startTimeTimestamp{};
+    inline std::chrono::time_point<std::chrono::steady_clock> prevFrameTimestamp{};
+    inline std::chrono::time_point<std::chrono::steady_clock> currentFrameTimestamp{};
+    inline std::chrono::milliseconds deltaTimeSinceStart{};
+    inline std::chrono::milliseconds deltaTimeSinceStartPrev{};
+    inline std::chrono::milliseconds deltaTime{};
 
     // public:
 
