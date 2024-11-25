@@ -14,7 +14,7 @@ class SphereObjectFactory {
 
     public:
 
-    std::shared_ptr<Object3D> makeSphereObject(float centerX=0.0f, float centerY=0.0f, float centerZ=0.0f,float radius=1.0f);
+    std::shared_ptr<Object3D> makeSphereObject(float centerX=0.0f, float centerY=0.0f, float centerZ=0.0f,float radiusScale=1.0f);
     std::shared_ptr<RenderGroup3D> makeSphereRenderGroup(const std::string& texturePath);
 
 };
