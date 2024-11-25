@@ -1,6 +1,7 @@
 #include "Shape.hpp"
 
 #include<algorithm>
+#include<iostream>
 
 Shape::Shape(std::unique_ptr<std::vector<float>> vertices, std::unique_ptr<std::vector<unsigned int>> indices) 
 : vertices{std::move(vertices)}, indices{std::move(indices)}, vao{}, ebo{}, vbo{}
@@ -50,6 +51,7 @@ void Shape::initShape() {
 }
 
 void Shape::initShapeWithTexture() {
+    std::cerr << "Starting initShapeWithTexture!" << "\n";
     glGenVertexArrays(1,&this->vao);
 
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
@@ -78,6 +80,7 @@ void Shape::initShapeWithTexture() {
     // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
+    std::cerr << "Done initShapeWithTextures!" << "\n";
 }
 
 void Shape::use() {
