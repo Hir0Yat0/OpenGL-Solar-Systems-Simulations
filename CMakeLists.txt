@@ -57,6 +57,8 @@ add_executable(sss
             src/ShaderLoader.cpp
             src/TestSphereRender.hpp
             src/TestSphereRender.cpp
+            src/FrameManager.hpp
+            src/FrameManager.cpp
 
 )
 
