@@ -6,6 +6,8 @@
 #include "TextureLoader.hpp"
 #include "GLDrawWindow.hpp"
 
+#include "ShaderLoader.hpp"
+
 #include "ShapeFactory.hpp"
 #include "SphereFactory.hpp"
 
@@ -18,16 +20,16 @@ int TestSphereRender::runTest() {
         return -1;
     }
 
-    Shader shader{"src/shaders/sphere.vert","src/shaders/sphere.frag"};
+    auto shader = ShaderLoader::loadShader("src/shaders/sphere.vert","src/shaders/sphere.frag");
 
-    if (!shader.shaderStatus){
+    if (!(*shader).shaderStatus){
         std::cerr << "Shader Initialization Errors" << "\n";
         return -1;
     }
 
     auto texture = TextureLoader::load("assets/sky-and-grass-24.jpg");
 
-    if (!texture.initSuccess) {
+    if (!(*texture).initSuccess) {
         std::cerr << "Texture Initialization Errors" << "\n";
         return -1;
     }
@@ -35,7 +37,7 @@ int TestSphereRender::runTest() {
     auto sphereFactory = SphereFactory();
     auto shape = sphereFactory.getSphere();
 
-    int exitcode = window.drawWindow(shader,(*shape),texture);
+    int exitcode = window.drawWindow((*shader),(*shape),(*texture));
 
     return exitcode;
 }

@@ -53,6 +53,8 @@ add_executable(sss
             # src/TestRenderGroup.cpp
             src/Tester.hpp
             # src/Tester.cpp
+            src/ShaderLoader.hpp
+            src/ShaderLoader.cpp
             src/TestSphereRender.hpp
             src/TestSphereRender.cpp
 
