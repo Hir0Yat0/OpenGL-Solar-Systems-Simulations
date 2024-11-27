@@ -59,6 +59,8 @@ add_executable(sss
             src/TestSphereRender.cpp
             src/FrameManager.hpp
             src/FrameManager.cpp
+            src/IDManager.hpp
+            src/IDManager.cpp
 
 )
 
