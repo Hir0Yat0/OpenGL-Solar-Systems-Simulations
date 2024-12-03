@@ -99,6 +99,6 @@ std::unique_ptr<Shape> SphereFactory::getSphere(void) {
 }
 
 std::unique_ptr<Shape> SphereFactory::getShape() {
-    // return this->getSphere();
-    return nullptr;
+    return this->getSphere();
+    // return nullptr;
 }

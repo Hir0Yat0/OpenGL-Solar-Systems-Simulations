@@ -61,6 +61,19 @@ add_executable(sss
             src/FrameManager.cpp
             src/IDManager.hpp
             src/IDManager.cpp
+            src/Object3D.hpp
+            src/Object3D.cpp
+            src/RenderGroup3D.hpp
+            src/RenderGroup3D.cpp
+            src/SphereObjectFactory.hpp
+            src/SphereObjectFactory.cpp
+            src/SphereRenderGroup.hpp
+            src/SphereRenderGroup.cpp
+            src/SphereRenderGroup.hpp
+            src/Object3DFactory.hpp
+            src/TestRenderGroup3D.hpp
+            src/TestRenderGroup3D.cpp
+        
 
 )
 

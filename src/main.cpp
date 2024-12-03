@@ -8,12 +8,13 @@
 
 #include "Tester.hpp"
 #include "TestSphereRender.hpp"
+#include "TestRenderGroup3D.hpp"
 
 int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestSphereRender();
+    auto tester = TestRenderGroup3D();
 
     int exitcode = tester.runTest();
 
