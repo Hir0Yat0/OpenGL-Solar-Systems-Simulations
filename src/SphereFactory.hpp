@@ -15,6 +15,8 @@ class SphereFactory: public ShapeFactory {
 
     std::unique_ptr<std::vector<float>> getVertices(void);
     std::unique_ptr<std::vector<unsigned int>> getIndices(void);
+    std::unique_ptr<std::vector<float>> getVertices1(void);
+    std::unique_ptr<std::vector<unsigned int>> getIndices1(void);
 
     public:
 
