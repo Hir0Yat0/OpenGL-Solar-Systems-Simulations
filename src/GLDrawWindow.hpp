@@ -6,28 +6,45 @@
 
 #include<vector>
 #include<optional>
+#include<memory>
 
 #include "Shader.hpp"
 #include "Shape.hpp"
 #include "Texture.hpp"
 #include "ShapeSurface.hpp"
 
+#include "RenderGroup3D.hpp"
+
+#include "FrameManager.hpp"
+
 class GLDrawWindow
 {
 private:
     /* data */
     GLFWwindow * window;
-    bool polygonFillMode;
     const int SCR_WIDTH;
     const int SCR_HEIGHT;
+    bool polygonFillMode;
     static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
 public:
     int initSuccess;
     GLDrawWindow(/* args */);
     ~GLDrawWindow();
+
+    /* this makes -Werror=effc++ compiles for GLFWwindow * window; */
+    /* https://stackoverflow.com/a/53892135 */
+
+    GLDrawWindow(const GLDrawWindow&) = delete;              // copy ctor
+    GLDrawWindow(GLDrawWindow&&) = delete;                   // move ctor
+    GLDrawWindow& operator=(const GLDrawWindow&) = delete;   // copy assignment
+    GLDrawWindow& operator=(GLDrawWindow&&) = delete;        // move assignment
+
+
     int drawWindow(Shader &shaderProgram, Shape & shape,const std::optional<Texture> & texture);
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
-    int drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces)    ;
+    // int drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces)    ;
+    int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
+    // int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();

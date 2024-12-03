@@ -10,7 +10,8 @@
 
 #include "Texture.hpp"
 
-Texture TextureLoader::load(const char * texturePath){
+std::unique_ptr<Texture> TextureLoader::load(const char * texturePath){
+    int initSuccess = 1;
     unsigned int texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -29,9 +30,10 @@ Texture TextureLoader::load(const char * texturePath){
     }
     else
     {
+        initSuccess = 0;
         std::cerr << "Failed to load texture" << "\n";
     }
     stbi_image_free(data);
-    return Texture{texture,width, height, nrChannels};
+    return std::make_unique<Texture>(texture,width, height, nrChannels, initSuccess);
 }
 

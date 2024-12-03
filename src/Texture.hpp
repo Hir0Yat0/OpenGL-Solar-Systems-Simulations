@@ -10,7 +10,8 @@ public:
     const int width; 
     const int height; 
     const int nrChannels;
-    Texture(unsigned int ID,int width, int height, int nrChannels);
+    const int initSuccess;
+    Texture(unsigned int ID,int width, int height, int nrChannels, int initSuccess);
     ~Texture();
     void use() const;
 };

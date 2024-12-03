@@ -2,7 +2,7 @@
 #include <chrono>
 
 GLDrawWindow::GLDrawWindow(/* args */)
-: SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
+: window{nullptr}, SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
 {
     this->initSuccess = this->initGLFWWindow() == 0;
 }
@@ -38,7 +38,7 @@ void GLDrawWindow::processInput()
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void GLDrawWindow::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void GLDrawWindow::framebuffer_size_callback([[maybe_unused]]GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
@@ -71,7 +71,7 @@ int GLDrawWindow::initGLFWWindow(){
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
         std::cerr << "Failed to initialize GLAD" << "\n";
         glfwTerminate();
@@ -185,7 +185,59 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,
     return 0;
 }
 
-int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces){    
+// int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces){    
+
+//     glEnable(GL_DEPTH_TEST);
+
+//     std::cerr << "Starting Rendering!" << "\n";
+
+//     // uncomment this call to draw in wireframe polygons.
+//     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+//     const auto startTime = std::chrono::system_clock::now();
+
+//     // render loop
+//     // -----------
+//     while (!glfwWindowShouldClose(window))
+//     {
+//         // input
+//         // -----
+//         // std::cerr << "Processing Input" << "\n";
+//         // processInput(window);
+//         this->processInput();
+
+//         // render
+//         // ------
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+//         shaderProgram.use();
+//         shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
+//         for (auto &shapeSurface : shapeSurfaces){
+//             // shapeSurface.texture.use();
+//             // shapeSurface.shape.use();
+//             // shapeSurface.shape.draw();
+//             shapeSurface.use();
+//             shapeSurface.draw();
+//         }
+//         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+//         // -------------------------------------------------------------------------------
+//         // std::cerr << "Swapping Buffers" << "\n";
+//         glfwSwapBuffers(window);
+//         // std::cerr << "Polling Events" << "\n";
+//         glfwPollEvents();
+//     }
+
+//     std::cerr << "Done Rendering!" << "\n";
+
+//     /* Clean Ups Done In Deconstructors */
+
+//     return 0;
+// }
+
+int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D){
 
     glEnable(GL_DEPTH_TEST);
 
@@ -194,12 +246,14 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
     // uncomment this call to draw in wireframe polygons.
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    const auto startTime = std::chrono::system_clock::now();
+    FrameManager::init();
 
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        FrameManager::updateFrame();
+
         // input
         // -----
         // std::cerr << "Processing Input" << "\n";
@@ -213,15 +267,14 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
         // std::cerr << "Clearing Color" << "\n";
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shaderProgram.use();
-        shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
-        for (auto &shapeSurface : shapeSurfaces){
-            // shapeSurface.texture.use();
-            // shapeSurface.shape.use();
-            // shapeSurface.shape.draw();
-            shapeSurface.use();
-            shapeSurface.draw();
-        }
+        // update objects
+
+        Object3D::updateAllObjects();
+
+        // render objects
+
+        (*renderGroup3D).render();
+
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         // std::cerr << "Swapping Buffers" << "\n";
@@ -235,4 +288,5 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
     /* Clean Ups Done In Deconstructors */
 
     return 0;
+
 }
