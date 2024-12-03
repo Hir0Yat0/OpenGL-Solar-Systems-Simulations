@@ -20,7 +20,7 @@ class Object3D {
 
     public:
 
-    size_t id;
+    const size_t id;
     std::array<float,3> position;
     std::array<float,3> velocity;
     std::array<float,3> acceleration;
