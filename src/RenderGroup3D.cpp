@@ -52,8 +52,10 @@ void RenderGroup3D::render(void){
                 glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
                 const glm::vec3 pos = glm::vec3((*object).position[0],(*object).position[1],(*object).position[2]);
                 model = glm::translate(model, pos);
-                constexpr float angleRads = 1.0f;
-                constexpr glm::vec3 axis = glm::vec3(1.0f, 0.3f, 0.5f);
+                // constexpr float angleRads = 1.0f;
+                // constexpr glm::vec3 axis = glm::vec3(1.0f, 0.3f, 0.5f);
+                const float angleRads = (*object).angle;
+                const glm::vec3 axis = (*object).getAxis();
                 model = glm::rotate(model, angleRads, axis);
                 (*this->shader).setMat4("model", model);
 

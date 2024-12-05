@@ -10,6 +10,7 @@
 
 #include"FrameManager.hpp"
 #include"IDManager.hpp"
+#include"glmlib.hpp"
 
 class Object3D {
 
@@ -17,6 +18,7 @@ class Object3D {
 
     static inline std::unordered_map<size_t,Object3D *> objs{};
     static inline IDManager idManager{};
+    glm::vec3 axis;
 
     public:
 
@@ -24,19 +26,24 @@ class Object3D {
     std::array<float,3> position;
     std::array<float,3> velocity;
     std::array<float,3> acceleration;
-    std::array<float,3> orientation;
-    std::array<float,3> angularVelocity;
+    float angle;
+    float angularVelocity;
     //  std::array<float,3> angularVelocity;
-    std::array<float,3> angularAcceleration;
+    float angularAcceleration;
     std::array<float,3> scale;
     std::array<float,3> scaleVelocity;
     std::array<float,3> scaleAcceleration;
 
-    Object3D(const std::array<float,3> &position=std::array<float,3>{0.0f,0.0f,0.0f},const std::array<float,3> &orientation=std::array<float,3>{0.0f,0.0f,0.0f}, const std::array<float,3> &scale=std::array<float,3>{1.0f,1.0f,1.0f});
+    Object3D(const std::array<float,3> &position=std::array<float,3>{0.0f,0.0f,0.0f}, float angle = 0.0f,const std::array<float,3> &axis=std::array<float,3>{0.0f,0.0f,0.0f}, const std::array<float,3> &scale=std::array<float,3>{1.0f,1.0f,1.0f});
     virtual ~Object3D();
     virtual void update(const std::chrono::milliseconds &deltaTime);
     static void updateAllObjects(void);
     virtual void printObjectInfo(void) const;
+    virtual void setAxis(int axis,float val);
+    [[nodiscard]]
+    virtual float getAxis(int axis);
+    [[nodiscard]]
+    virtual glm::vec3 getAxis(void);
 
 };
 

@@ -19,10 +19,12 @@ int TestCamera::runTest() {
 
     auto sphere1 = sphereObjectFactory.getSharedObject3D();
     auto sphere2 = sphereObjectFactory.getSharedObject3D();
-    (*sphere1).angularVelocity[0] = 0.5f;
-    (*sphere1).orientation[0] = 3.14;
-    (*sphere1).angularVelocity[1] = 0.5f;
-    (*sphere1).angularVelocity[2] = 0.5f;
+    // (*sphere1).angularVelocity[0] = 0.5f;
+    // (*sphere1).orientation[0] = 3.14;
+    // (*sphere1).angularVelocity[1] = 0.5f;
+    // (*sphere1).angularVelocity[2] = 0.5f;
+    (*sphere1).setAxis(0,1);
+    (*sphere1).angularVelocity = 1;
 
     (*sphere1).scale[0] = 0.3f;
     (*sphere1).scale[1] = 0.3f;
