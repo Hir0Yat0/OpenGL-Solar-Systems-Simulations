@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 3.18)
 
 project(SSS VERSION 0.1.0 DESCRIPTION "OpenGL Solar Systems Simulations" LANGUAGES CXX C)
 
+# debug flags
+
 # set(CMAKE_CXX_FLAGS "-O0 -fno-elide-constructors -pedantic-errors -ansi -Wextra -Wall     -Winit-self -Wold-style-cast -Woverloaded-virtual -Wuninitialized -Wmissing-declarations    -Winit-self -std=c++98")
 
 # set(CMAKE_CXX_FLAGS "-O0 -fno-elide-constructors -pedantic-errors -ansi -Wextra -Wall  -Weffc++   -Winit-self -Woverloaded-virtual -Wuninitialized -Wmissing-declarations    -Winit-self")
-set(CMAKE_CXX_FLAGS "-O0 -fno-elide-constructors -pedantic-errors -ansi -Wextra -Wall  -Weffc++   -Winit-self  -Woverloaded-virtual -Wuninitialized -Wmissing-declarations    -Winit-self")
+# set(CMAKE_CXX_FLAGS "-O0 -fno-elide-constructors -pedantic-errors -ansi -Wextra -Wall  -Weffc++   -Winit-self  -Woverloaded-virtual -Wuninitialized -Wmissing-declarations    -Winit-self")
 
 # set (CMAKE_CXX_FLAGS "-Weffc++")
 
@@ -13,9 +15,11 @@ set(CMAKE_CXX_FLAGS "-O0 -fno-elide-constructors -pedantic-errors -ansi -Wextra 
 
 # set(CMAKE_VERBOSE_MAKEFILE ON)
 
+
 add_executable(sss 
             src/main.cpp 
             src/glad.c
+            src/glmlib.hpp
             src/GLDrawWindow.cpp
             src/GLDrawWindow.hpp
             src/Shader.cpp
@@ -73,6 +77,13 @@ add_executable(sss
             src/Object3DFactory.hpp
             src/TestRenderGroup3D.hpp
             src/TestRenderGroup3D.cpp
+            src/Tests.hpp
+            src/TestRender2Objects.hpp
+            src/TestRender2Objects.cpp
+            src/Camera.hpp
+            src/Camera.cpp
+            src/TestCamera.hpp
+            src/TestCamera.cpp
         
 
 )
@@ -87,6 +98,7 @@ target_link_directories(sss PUBLIC lib)
 # target_link_libraries(sss PRIVATE glfw3)
 target_link_libraries(sss PUBLIC -lglfw3dll)
 # target_link_libraries(sss PUBLIC -Iinclude -Llib)
+
 add_custom_command(
     TARGET sss POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

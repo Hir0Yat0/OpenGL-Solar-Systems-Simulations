@@ -6,6 +6,8 @@
 #include <memory>
 #include <unordered_map>
 
+#include "glmlib.hpp"
+
 #include "Shape.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
@@ -31,6 +33,7 @@ class RenderGroup3D {
     );
     virtual ~RenderGroup3D() = default;
     virtual void render(void);
+    virtual void render([[maybe_unused]] const glm::mat4 &projection, [[maybe_unused]] const glm::mat4 &view);
     virtual void add(std::shared_ptr<Object3D> object);
     virtual void remove(size_t objectID);
 

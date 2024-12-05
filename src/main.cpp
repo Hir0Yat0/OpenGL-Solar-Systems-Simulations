@@ -7,14 +7,15 @@
 #include "Utils.hpp"
 
 #include "Tester.hpp"
-#include "TestSphereRender.hpp"
-#include "TestRenderGroup3D.hpp"
+#include "Tests.hpp"
+
+#include"glmlib.hpp"
 
 int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestRenderGroup3D();
+    auto tester = TestCamera();
 
     int exitcode = tester.runTest();
 

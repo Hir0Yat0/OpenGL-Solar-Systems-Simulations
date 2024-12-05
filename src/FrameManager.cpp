@@ -19,6 +19,7 @@ void FrameManager::updateFrame(void) {
     FrameManager::currentFrameTimestamp = now;
     FrameManager::deltaTimeSinceStart = std::chrono::duration_cast<std::chrono::milliseconds>(FrameManager::currentFrameTimestamp - FrameManager::startTimeTimestamp);
     FrameManager::deltaTimeSinceStartPrev = std::chrono::duration_cast<std::chrono::milliseconds>(FrameManager::prevFrameTimestamp - FrameManager::startTimeTimestamp);
+    FrameManager::deltaTimeSeconds = std::chrono::duration<float>(deltaTime).count();
 }
 
 void FrameManager::init(void) {
@@ -29,5 +30,6 @@ void FrameManager::init(void) {
     FrameManager::startTimeTimestamp = now;
     FrameManager::prevFrameTimestamp = now;
     FrameManager::currentFrameTimestamp = now;
+    FrameManager::deltaTimeSeconds = std::chrono::duration<float>(deltaTime).count();
     
 }

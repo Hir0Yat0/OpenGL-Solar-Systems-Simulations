@@ -16,6 +16,8 @@
 #include "RenderGroup3D.hpp"
 
 #include "FrameManager.hpp"
+#include "glmlib.hpp"
+#include "Camera.hpp"
 
 class GLDrawWindow
 {
@@ -25,6 +27,7 @@ private:
     const int SCR_WIDTH;
     const int SCR_HEIGHT;
     bool polygonFillMode;
+    static inline Camera camera{};
     static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
 public:
     int initSuccess;
@@ -48,6 +51,8 @@ public:
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();
+    static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+    void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
 
