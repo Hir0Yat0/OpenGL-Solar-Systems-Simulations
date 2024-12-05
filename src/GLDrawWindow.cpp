@@ -35,14 +35,18 @@ void GLDrawWindow::processInput()
         this->togglePolygonFillMode();
     }
     // camera movements
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
         camera.ProcessKeyboard(this->camera.FORWARD, FrameManager::deltaTimeSeconds);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
         camera.ProcessKeyboard(this->camera.BACKWARD, FrameManager::deltaTimeSeconds);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
         camera.ProcessKeyboard(this->camera.LEFT, FrameManager::deltaTimeSeconds);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
         camera.ProcessKeyboard(this->camera.RIGHT, FrameManager::deltaTimeSeconds);
+    }
 
 }
 
