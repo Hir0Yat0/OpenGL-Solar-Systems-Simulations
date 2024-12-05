@@ -118,6 +118,9 @@ int GLDrawWindow::initGLFWWindow(){
     glfwMakeContextCurrent(this->window);
     this->setCallbacks();
 
+    // capture mouse to windows
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
