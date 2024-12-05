@@ -29,6 +29,9 @@ private:
     bool polygonFillMode;
     static inline Camera camera{};
     static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+    static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+    void setCallbacks(void);
 public:
     int initSuccess;
     GLDrawWindow(/* args */);
@@ -51,8 +54,6 @@ public:
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();
-    static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
-    void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
 

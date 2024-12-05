@@ -80,11 +80,18 @@ void GLDrawWindow::mouse_callback([[maybe_unused]]GLFWwindow * window, double xp
     GLDrawWindow::camera.ProcessMouseMovement(xoffset,yoffset);
 }
 
+void GLDrawWindow::setCallbacks(void) {
+    glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
+    glfwSetCursorPosCallback(this->window,this->mouse_callback);
+    glfwSetScrollCallback(this->window,this->scroll_callback);
+
+}
+
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
 void GLDrawWindow::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    this->camera.ProcessMouseScroll(static_cast<float>(yoffset));
+    GLDrawWindow::camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 int GLDrawWindow::initGLFWWindow(){
@@ -109,8 +116,7 @@ int GLDrawWindow::initGLFWWindow(){
         return -1;
     }
     glfwMakeContextCurrent(this->window);
-    glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
-    glfwSetCursorPosCallback(this->window,this->mouse_callback);
+    this->setCallbacks();
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
