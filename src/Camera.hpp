@@ -14,9 +14,9 @@ class Camera {
     static constexpr float YAW = -90.0f;
     static constexpr float PITCH = 0.0f;
     static constexpr float SPEED = 2.5f;
-    static constexpr float SENSITIVITY = 0.1f;
+    static constexpr float SENSITIVITY = 0.3f;
     static constexpr float ZOOM = 45.0f;
-
+    static constexpr float SPRINT_MULTIPLIER = 10.0f;
 
 
     
@@ -38,6 +38,7 @@ class Camera {
 
     // Camera options
     float MovementSpeed;
+    float sprintMultiplier;
     float MouseSensitivity;
     float Zoom;
 
@@ -51,6 +52,8 @@ class Camera {
         BACKWARD,
         LEFT,
         RIGHT,
+        UP,
+        DOWN,
     };
 
     // Constructor
@@ -65,7 +68,7 @@ class Camera {
     void updateCameraVectors() ;
 
     // Processes keyboard input
-    void ProcessKeyboard(Camera_Movement direction, float deltaTime) ;
+    void ProcessKeyboard(Camera_Movement direction, float deltaTime, bool isShiftPressed) ;
 
     // Processes mouse movement
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true) ;
