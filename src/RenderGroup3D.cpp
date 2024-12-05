@@ -42,11 +42,23 @@ void RenderGroup3D::render(void){
                 // std::cerr << "Rendering ObjectW: " << (*object).id << "\n";
                 (*this->shader).setFloat(std::string("timeMillis"),static_cast<float>(FrameManager::deltaTimeSinceStart.count()));
                 (*this->shader).setFloat(std::string("deltaTimeMillis"),static_cast<float>(FrameManager::deltaTime.count()));
-                for (int i = 0; i < 3; i++){
-                    (*this->shader).setFloat(std::format("vPosition{}",i),(*object).position.at(i));
-                    (*this->shader).setFloat(std::format("vOrientation{}",i),(*object).orientation.at(i));
-                    (*this->shader).setFloat(std::format("vScale{}",i),(*object).scale.at(i));
-                }
+                // for (int i = 0; i < 3; i++){
+                //     (*this->shader).setFloat(std::format("vPosition{}",i),(*object).position.at(i));
+                //     (*this->shader).setFloat(std::format("vOrientation{}",i),(*object).orientation.at(i));
+                //     (*this->shader).setFloat(std::format("vScale{}",i),(*object).scale.at(i));
+                // }
+
+                // calculate the model matrix for each object and pass it to shader before drawing
+                glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+                const glm::vec3 pos = glm::vec3((*object).position[0],(*object).position[1],(*object).position[2]);
+                model = glm::translate(model, pos);
+                // constexpr float angleRads = 1.0f;
+                // constexpr glm::vec3 axis = glm::vec3(1.0f, 0.3f, 0.5f);
+                const float angleRads = (*object).angle;
+                const glm::vec3 axis = (*object).getAxis();
+                model = glm::rotate(model, angleRads, axis);
+                (*this->shader).setMat4("model", model);
+
                 if (this->shape){
                     // Utils::printVectorErr((*(*this->shape).vertices));
                     std::cerr << "Drawing!" << "\n";
@@ -55,6 +67,13 @@ void RenderGroup3D::render(void){
             }
         }
     }
+}
+void RenderGroup3D::render(const glm::mat4& projection, const glm::mat4& view) {
+
+    (*this->shader).setMat4("projection", projection);
+    (*this->shader).setMat4("view", view);
+    this->render();
+
 };
 void RenderGroup3D::add(std::shared_ptr<Object3D> object){
     if (!this->objects){

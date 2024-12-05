@@ -34,6 +34,16 @@ void GLDrawWindow::processInput()
     if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS){
         this->togglePolygonFillMode();
     }
+    // camera movements
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        camera.ProcessKeyboard(this->camera.FORWARD, FrameManager::deltaTimeSeconds);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        camera.ProcessKeyboard(this->camera.BACKWARD, FrameManager::deltaTimeSeconds);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        camera.ProcessKeyboard(this->camera.LEFT, FrameManager::deltaTimeSeconds);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        camera.ProcessKeyboard(this->camera.RIGHT, FrameManager::deltaTimeSeconds);
+
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -43,6 +53,38 @@ void GLDrawWindow::framebuffer_size_callback([[maybe_unused]]GLFWwindow* window,
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+}
+
+
+// glfw: whenever the mouse moves, this callback is called
+// -------------------------------------------------------
+void GLDrawWindow::mouse_callback([[maybe_unused]]GLFWwindow * window, double xposIn, double yposIn)
+{
+    const float xpos{static_cast<float>(xposIn)};
+    const float ypos {static_cast<float>(yposIn)};
+
+    if ( GLDrawWindow::camera.firstMouse)
+    {
+        GLDrawWindow::camera.prevPosX = xpos;
+        GLDrawWindow::camera.prevPosY = ypos;
+        GLDrawWindow::camera.firstMouse = false;
+    }
+
+    const float xoffset = xpos - GLDrawWindow::camera.prevPosX;
+    const float yoffset = GLDrawWindow::camera.prevPosY - ypos; // reversed since y-coordinates go from bottom to top
+
+    GLDrawWindow::camera.prevPosX = xpos;
+    GLDrawWindow::camera.prevPosY = ypos;
+
+
+    GLDrawWindow::camera.ProcessMouseMovement(xoffset,yoffset);
+}
+
+// glfw: whenever the mouse scroll wheel scrolls, this callback is called
+// ----------------------------------------------------------------------
+void GLDrawWindow::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    this->camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 int GLDrawWindow::initGLFWWindow(){
@@ -68,6 +110,7 @@ int GLDrawWindow::initGLFWWindow(){
     }
     glfwMakeContextCurrent(this->window);
     glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
+    glfwSetCursorPosCallback(this->window,this->mouse_callback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -267,13 +310,22 @@ int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D){
         // std::cerr << "Clearing Color" << "\n";
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+        /* set model, view, and projection matrices */
+
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, 100.0f);
+
+        // camera/view transformation
+        glm::mat4 view = camera.GetViewMatrix();
+
         // update objects
 
         Object3D::updateAllObjects();
 
         // render objects
 
-        (*renderGroup3D).render();
+        (*renderGroup3D).render(projection,view);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

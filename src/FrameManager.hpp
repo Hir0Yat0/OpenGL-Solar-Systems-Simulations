@@ -14,6 +14,7 @@ namespace FrameManager {
     inline std::chrono::milliseconds deltaTimeSinceStart{};
     inline std::chrono::milliseconds deltaTimeSinceStartPrev{};
     inline std::chrono::milliseconds deltaTime{};
+    inline float deltaTimeSeconds{};
 
     // public:
 

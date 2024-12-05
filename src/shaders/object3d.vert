@@ -20,6 +20,10 @@ uniform float vOrientation0;
 uniform float vOrientation1;
 uniform float vOrientation2;
 
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
 mat4 getRotationMatrix(float rx, float ry, float rz, float theta){
     float cosTheta = cos(theta);
     float sinTheta = sin(theta);
@@ -41,41 +45,44 @@ void main(){
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0 
     );
-    mat4 scaleMat4 = mat4 ( 
-        vScale0, 0.0, 0.0, 0.0,  
-        0.0, vScale1, 0.0, 0.0,  
-        0.0, 0.0, vScale2, 0.0,  
-        0.0, 0.0, 0.0, 1.0  
-    );
-    // const mat4 rotationXMat4 = getRotationMatrix(1.0,0.0,0.0,vOrientation0);
-    // const mat4 rotationYMat4 = getRotationMatrix(0.0,1.0,0.0,vOrientation1);
-    // const mat4 rotationZMat4 = getRotationMatrix(0.0,0.0,1.0,vOrientation2);
-    mat4 rotationXMat4 = mat4 (
-        1.0, 0.0, 0.0, 0.0, 
-        0.0, cos(vOrientation0), -sin(vOrientation0), 0.0, 
-        0.0, sin(vOrientation0), cos(vOrientation0), 0.0, 
-        0.0, 0.0, 0.0, 1.0 
-    );
-    mat4 rotationYMat4 = mat4 (
-        cos(vOrientation1), 0.0, -sin(vOrientation1), 0.0,
-        0.0, 1.0, 0.0, 0.0,
-        -sin(vOrientation1), 0.0, cos(vOrientation1), 0.0,
-        0.0, 0.0, 0.0, 1.0
-    );
-    mat4 rotationZMat4 = mat4 (
-        cos(vOrientation2), -sin(vOrientation2), 0.0, 0.0,
-        sin(vOrientation2), cos(vOrientation2), 0.0, 0.0,
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0 
-    );
-    mat4 rotationMat4 = rotationZMat4 * rotationYMat4 * rotationXMat4;
-    mat4 translationMat4 = mat4 (
-        1.0, 0.0, 0.0, vPosition0, 
-        0.0, 1.0, 0.0, vPosition1, 
-        0.0, 0.0, 1.0, vPosition2, 
-        0.0, 0.0, 0.0, 1.0 
-    );
-    mat4 transformationMat4 = translationMat4 * rotationMat4 * scaleMat4 * idMat4;
+    // mat4 scaleMat4 = mat4 ( 
+    //     vScale0, 0.0, 0.0, 0.0,  
+    //     0.0, vScale1, 0.0, 0.0,  
+    //     0.0, 0.0, vScale2, 0.0,  
+    //     0.0, 0.0, 0.0, 1.0  
+    // );
+    // // const mat4 rotationXMat4 = getRotationMatrix(1.0,0.0,0.0,vOrientation0);
+    // // const mat4 rotationYMat4 = getRotationMatrix(0.0,1.0,0.0,vOrientation1);
+    // // const mat4 rotationZMat4 = getRotationMatrix(0.0,0.0,1.0,vOrientation2);
+    // mat4 rotationXMat4 = mat4 (
+    //     1.0, 0.0, 0.0, 0.0, 
+    //     0.0, cos(vOrientation0), -sin(vOrientation0), 0.0, 
+    //     0.0, sin(vOrientation0), cos(vOrientation0), 0.0, 
+    //     0.0, 0.0, 0.0, 1.0 
+    // );
+    // mat4 rotationYMat4 = mat4 (
+    //     cos(vOrientation1), 0.0, -sin(vOrientation1), 0.0,
+    //     0.0, 1.0, 0.0, 0.0,
+    //     -sin(vOrientation1), 0.0, cos(vOrientation1), 0.0,
+    //     0.0, 0.0, 0.0, 1.0
+    // );
+    // mat4 rotationZMat4 = mat4 (
+    //     cos(vOrientation2), -sin(vOrientation2), 0.0, 0.0,
+    //     sin(vOrientation2), cos(vOrientation2), 0.0, 0.0,
+    //     0.0, 0.0, 1.0, 0.0,
+    //     0.0, 0.0, 0.0, 1.0 
+    // );
+    // mat4 rotationMat4 = rotationZMat4 * rotationYMat4 * rotationXMat4;
+    // mat4 translationMat4 = mat4 (
+    //     1.0, 0.0, 0.0, vPosition0, 
+    //     0.0, 1.0, 0.0, vPosition1, 
+    //     0.0, 0.0, 1.0, vPosition2, 
+    //     0.0, 0.0, 0.0, 1.0 
+    // );
+
+    // mat4 model = translationMat4 * rotationMat4 * scaleMat4 * idMat4;
+
+    mat4 transformationMat4 = projection * view * model * idMat4;
 
     vec4 fPos4 = transformationMat4 * vPos4;
 
