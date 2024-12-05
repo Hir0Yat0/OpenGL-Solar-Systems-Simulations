@@ -20,6 +20,23 @@ void FrameManager::updateFrame(void) {
     FrameManager::deltaTimeSinceStart = std::chrono::duration_cast<std::chrono::milliseconds>(FrameManager::currentFrameTimestamp - FrameManager::startTimeTimestamp);
     FrameManager::deltaTimeSinceStartPrev = std::chrono::duration_cast<std::chrono::milliseconds>(FrameManager::prevFrameTimestamp - FrameManager::startTimeTimestamp);
     FrameManager::deltaTimeSeconds = std::chrono::duration<float>(deltaTime).count();
+    FrameManager::scaleTimeByGameSpeed();
+}
+
+std::chrono::milliseconds FrameManager::scaleDurationByFloat(const std::chrono::milliseconds& duration, float scale) {
+    // const auto a = std::chrono::duration<float,std::milli>(FrameManager::deltaTime) * FrameManager::gameSpeed;
+    // const auto b = std::chrono::duration_cast<std::chrono::milliseconds>(a);
+    // FrameManager::deltaTime = b;
+    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<float,std::milli>(duration) * scale);
+}
+
+void FrameManager::scaleTimeByGameSpeed(void) {
+    
+    FrameManager::deltaTime = FrameManager::scaleDurationByFloat(FrameManager::deltaTime,FrameManager::gameSpeed);
+    // FrameManager::deltaTime = FrameManager::scaleDurationByFloat(FrameManager::deltaTime,FrameManager::gameSpeed);
+    FrameManager::deltaTimeSinceStart = FrameManager::scaleDurationByFloat(FrameManager::deltaTimeSinceStart,FrameManager::gameSpeed);
+    FrameManager::deltaTimeSinceStartPrev = FrameManager::scaleDurationByFloat(FrameManager::deltaTimeSinceStartPrev,FrameManager::gameSpeed);
+    FrameManager::deltaTimeSeconds = FrameManager::deltaTimeSeconds * FrameManager::gameSpeed;
 }
 
 void FrameManager::init(void) {

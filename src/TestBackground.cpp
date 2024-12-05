@@ -22,6 +22,7 @@ int TestBackground::runTest() {
 
     (*background).setUniformScale(5000.0f);
     (*background).angularVelocity = 0.001f;
+    FrameManager::gameSpeed = 1.0f;
 
     auto sphere1 = sphereObjectFactory.getSharedObject3D();
     auto sphere2 = sphereObjectFactory.getSharedObject3D();
