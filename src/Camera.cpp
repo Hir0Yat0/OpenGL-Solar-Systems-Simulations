@@ -1,7 +1,9 @@
 #include "Camera.hpp"
 
+#include "cmath"
+
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : Front{glm::vec3(0.0f, 0.0f, -1.0f)}, MovementSpeed{SPEED}, MouseSensitivity{SENSITIVITY}, Zoom{ZOOM} , firstMouse{true}, prevPosX{}, prevPosY{}
+    : Front{glm::vec3(0.0f, 0.0f, -1.0f)}, sprintMultiplier{SPRINT_MULTIPLIER}, MovementSpeed{SPEED}, MouseSensitivity{SENSITIVITY}, Zoom{ZOOM} , firstMouse{true}, prevPosX{}, prevPosY{}
 {
     Position = position;
     WorldUp = up;
@@ -44,19 +46,30 @@ void Camera::ProcessMouseScroll(float yoffset) {
     }
 }
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
-    float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD){
-        Position += Front * velocity;
-    }
-    if (direction == BACKWARD){
-        Position -= Front * velocity;
-    }
-    if (direction == LEFT){
-        Position -= Right * velocity;
-    }
-    if (direction == RIGHT){
-        Position += Right * velocity;
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool isShiftPressed) {
+    const float velocity = MovementSpeed * deltaTime * (isShiftPressed ? sprintMultiplier : 1.0f);
+    switch (direction) {
+        case Camera_Movement::FORWARD: {
+            Position += Front * velocity;
+        }   break;
+        case Camera_Movement::BACKWARD: {
+            Position -= Front * velocity;
+        }   break;
+        case Camera_Movement::LEFT: {
+            Position -= Right * velocity;
+        }   break;
+        case Camera_Movement::RIGHT: {
+            Position += Right * velocity;
+        }   break;
+        case Camera_Movement::UP: {
+            Position += Up * velocity;
+        }   break;
+        case Camera_Movement::DOWN: {
+            Position -= Up * velocity;
+        }   break;
+        default: {
+            // nothing
+        }   break;
     }
 }
 

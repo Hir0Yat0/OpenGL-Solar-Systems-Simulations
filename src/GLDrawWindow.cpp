@@ -31,21 +31,30 @@ void GLDrawWindow::processInput()
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
         glfwSetWindowShouldClose(this->window, true);
     }
-    if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS){
+    if (glfwGetKey(this->window, GLFW_KEY_F) == GLFW_PRESS){
         this->togglePolygonFillMode();
     }
     // camera movements
+
+    const bool isShiftPressed = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
+
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
-        camera.ProcessKeyboard(this->camera.FORWARD, FrameManager::deltaTimeSeconds);
+        camera.ProcessKeyboard(this->camera.FORWARD, FrameManager::deltaTimeSeconds, isShiftPressed);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
-        camera.ProcessKeyboard(this->camera.BACKWARD, FrameManager::deltaTimeSeconds);
+        camera.ProcessKeyboard(this->camera.BACKWARD, FrameManager::deltaTimeSeconds, isShiftPressed);
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
-        camera.ProcessKeyboard(this->camera.LEFT, FrameManager::deltaTimeSeconds);
+        camera.ProcessKeyboard(this->camera.LEFT, FrameManager::deltaTimeSeconds, isShiftPressed);
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
-        camera.ProcessKeyboard(this->camera.RIGHT, FrameManager::deltaTimeSeconds);
+        camera.ProcessKeyboard(this->camera.RIGHT, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.UP, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.DOWN, FrameManager::deltaTimeSeconds, isShiftPressed);
     }
 
 }
@@ -81,7 +90,7 @@ void GLDrawWindow::mouse_callback([[maybe_unused]]GLFWwindow * window, double xp
     GLDrawWindow::camera.prevPosY = ypos;
 
 
-    GLDrawWindow::camera.ProcessMouseMovement(xoffset,yoffset);
+    GLDrawWindow::camera.ProcessMouseMovement(xoffset,yoffset,true);
 }
 
 void GLDrawWindow::setCallbacks(void) {
