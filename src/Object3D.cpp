@@ -42,7 +42,9 @@ void Object3D::update(const std::chrono::milliseconds &deltaTime) {
     const float deltaTimeSeconds = std::chrono::duration<float>(deltaTime).count();
     DBGEXPR(deltaTime);
     DBGEXPR(deltaTimeSeconds);
-
+    this->update(deltaTimeSeconds);
+}
+void Object3D::update(const float& deltaTimeSeconds) {
     this->angularVelocity += this->angularAcceleration * deltaTimeSeconds;
     this->angle += this->angularVelocity * deltaTimeSeconds;
     this->angle = copysignf(1.0f,this->angle) * fmodf(fabsf(this->angle),2*M_PI);
@@ -54,12 +56,13 @@ void Object3D::update(const std::chrono::milliseconds &deltaTime) {
         // this->orientation.at(i) = copysignf(1.0f,this->orientation.at(i)) * fmodf(2*M_PI,fabsf(this->orientation.at(i)));
         this->scale.at(i) += this->scaleVelocity.at(i) * deltaTimeSeconds;
     }
+
 }
 void Object3D::updateAllObjects(void) {
     std::cerr << "Starting updateAllObjects!" << "\n";
     for (auto & [objId,obj] : objs){
         std::cerr << "Updating Objects!" << "\n";
-        obj->update(FrameManager::deltaTime);
+        obj->update(FrameManager::deltaTimeSeconds);
         obj->printObjectInfo();
     }
     std::cerr << "Done updateAllObjects!" << "\n";

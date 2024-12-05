@@ -38,6 +38,7 @@ class Object3D {
     Object3D(const std::array<float,3> &position=std::array<float,3>{0.0f,0.0f,0.0f}, float angle = 0.0f,const std::array<float,3> &axis=std::array<float,3>{1.0f,0.0f,0.0f}, const std::array<float,3> &scale=std::array<float,3>{1.0f,1.0f,1.0f});
     virtual ~Object3D();
     virtual void update(const std::chrono::milliseconds &deltaTime);
+    virtual void update(const float &deltaTimeSeconds);
     static void updateAllObjects(void);
     virtual void printObjectInfo(void) const;
     virtual void setAxis(int axis,float val);
