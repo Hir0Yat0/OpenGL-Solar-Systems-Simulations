@@ -57,6 +57,8 @@ void RenderGroup3D::render(void){
                 const float angleRads = (*object).angle;
                 const glm::vec3 axis = (*object).getAxis();
                 model = glm::rotate(model, angleRads, axis);
+                const glm::vec3 scale = glm::vec3((*object).scale[0],(*object).scale[1],(*object).scale[2]);
+                model = glm::scale(model,scale);
                 (*this->shader).setMat4("model", model);
 
                 if (this->shape){

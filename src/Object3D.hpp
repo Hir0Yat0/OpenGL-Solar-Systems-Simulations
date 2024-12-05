@@ -50,6 +50,7 @@ class Object3D {
     virtual float getAxis(int axis);
     [[nodiscard]]
     virtual glm::vec3 getAxis(void);
+    virtual void setUniformScale(float val);
 
 };
 

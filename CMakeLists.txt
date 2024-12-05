@@ -84,6 +84,11 @@ add_executable(sss
             src/Camera.cpp
             src/TestCamera.hpp
             src/TestCamera.cpp
+            src/TestBackground.hpp
+            src/TestBackground.cpp
+            src/RenderGroup3DManager.hpp
+            src/RenderGroup3DManager.cpp
+            src/lib3d.hpp
         
 
 )

@@ -6,5 +6,6 @@
 #include "TestRenderGroup3D.hpp"
 #include "TestRender2Objects.hpp"
 #include "TestCamera.hpp"
+#include "TestBackground.hpp"
 
 #endif // TESTS_HPP

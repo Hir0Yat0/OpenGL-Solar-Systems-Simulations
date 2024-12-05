@@ -115,3 +115,9 @@ float Object3D::getAxis(int axis) {
 glm::vec3 Object3D::getAxis(void) {
     return this->axis;
 }
+
+void Object3D::setUniformScale(float val) {
+    this->scale[0] = val;
+    this->scale[1] = val;
+    this->scale[2] = val;
+}

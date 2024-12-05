@@ -15,7 +15,7 @@ int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestCamera();
+    auto tester = TestBackground();
 
     int exitcode = tester.runTest();
 

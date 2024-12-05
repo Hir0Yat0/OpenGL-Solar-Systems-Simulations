@@ -42,6 +42,8 @@ class Camera {
     float MouseSensitivity;
     float Zoom;
 
+    static constexpr float renderDistance = 10000.0f;
+
     // prev states
     bool firstMouse;
     float prevPosX;

@@ -14,6 +14,7 @@
 #include "ShapeSurface.hpp"
 
 #include "RenderGroup3D.hpp"
+#include "RenderGroup3DManager.hpp"
 
 #include "FrameManager.hpp"
 #include "glmlib.hpp"
@@ -50,7 +51,7 @@ public:
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
     // int drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces)    ;
     int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
-    // int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
+    int drawWindow(std::unique_ptr<RenderGroup3DManager> renderGroup3DManager);
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();
