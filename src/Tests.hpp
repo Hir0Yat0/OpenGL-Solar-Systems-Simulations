@@ -8,5 +8,6 @@
 #include "TestCamera.hpp"
 #include "TestBackground.hpp"
 #include "TestOrbitalObjects.hpp"
+#include "TestOrbitAroundObject.hpp"
 
 #endif // TESTS_HPP

@@ -43,6 +43,7 @@ class Camera {
     float Zoom;
 
     static constexpr float renderDistance = 10000.0f;
+    // static constexpr float renderDistance = 1e17;
 
     // prev states
     bool firstMouse;

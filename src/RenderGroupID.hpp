@@ -1,0 +1,13 @@
+#ifndef RENDERGROUPID_HPP
+#define RENDERGROUPID_HPP
+
+
+enum RenderGroupID {
+    DEFAULT,
+    UNKNOWN,
+    SPHERE,
+    BACKGROUND,
+    CENTRAL,
+};
+
+#endif // RENDERGROUPID_HPP

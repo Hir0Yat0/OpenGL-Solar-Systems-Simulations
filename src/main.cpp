@@ -15,7 +15,7 @@ int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestOrbitalObjects();
+    auto tester = TestOrbitAroundObject();
 
     int exitcode = tester.runTest();
 

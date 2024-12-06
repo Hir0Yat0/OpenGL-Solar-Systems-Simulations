@@ -97,6 +97,9 @@ add_executable(sss
             src/OrbitalObjectFactory.cpp
             src/TestOrbitalObjects.hpp
             src/TestOrbitalObjects.cpp
+            src/TestOrbitAroundObject.hpp
+            src/TestOrbitAroundObject.cpp
+            src/RenderGroupID.hpp
         
 
 )
