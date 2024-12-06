@@ -1,5 +1,13 @@
 # OpenGL-Solar-Systems-Simulations
 
-Controls:
+## Controls:
 
-Space: shows wiresframes
+F: toggle wiresframes mode
+
+WASD: movements
+
+Space: Up
+
+Ctrl: Down 
+
+Shift: Speed Up / Sprints
