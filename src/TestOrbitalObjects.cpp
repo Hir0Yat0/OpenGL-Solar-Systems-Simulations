@@ -42,13 +42,17 @@ int TestOrbitalObjects::runTest() {
     (*sphere1).velocity[1] = -0.5f;
     (*sphere2).position[0] = 1.5f;
 
+
     auto sphere3 = orbitalObjectFactory.getSharedOrbitalObject3D();
     (*sphere3).velocity[1] = 1.5f;
-    // (*sphere3).velocity[0] = 10.5f;
+    (*sphere3).velocity[0] = 1.5f;
     (*sphere3).position[0] = 100.0f;
-    // (*sphere3).position[1] = 100.0f;
+    (*sphere3).position[1] = 100.0f;
     (*sphere3).setUniformScale(10.0f);
     (*sphere3).gravityToCentralObject = 1000.0f;
+
+    (*sphere3).setAxisZ();
+    (*sphere3).angularVelocity = 1.0f / (2.0f * 3.14f);
 
     auto sphereRenderGroup = SphereRenderGroup().getRenderGroup3D();
     auto backgroundRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/galaxy-6972265_1920.jpg");
