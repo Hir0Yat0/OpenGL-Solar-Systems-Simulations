@@ -7,5 +7,6 @@
 #include "TestRender2Objects.hpp"
 #include "TestCamera.hpp"
 #include "TestBackground.hpp"
+#include "TestOrbitalObjects.hpp"
 
 #endif // TESTS_HPP

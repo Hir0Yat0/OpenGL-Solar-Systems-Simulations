@@ -89,6 +89,14 @@ add_executable(sss
             src/RenderGroup3DManager.hpp
             src/RenderGroup3DManager.cpp
             src/lib3d.hpp
+            src/OrbitalMovement.hpp
+            src/OrbitalMovement.cpp
+            src/OrbitalObject3D.hpp
+            src/OrbitalObject3D.cpp
+            src/OrbitalObjectFactory.hpp
+            src/OrbitalObjectFactory.cpp
+            src/TestOrbitalObjects.hpp
+            src/TestOrbitalObjects.cpp
         
 
 )
