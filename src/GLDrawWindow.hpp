@@ -14,6 +14,7 @@
 #include "ShapeSurface.hpp"
 
 #include "RenderGroup3D.hpp"
+#include "RenderGroup3DManager.hpp"
 
 #include "FrameManager.hpp"
 #include "glmlib.hpp"
@@ -27,12 +28,12 @@ private:
     const int SCR_WIDTH;
     const int SCR_HEIGHT;
     bool polygonFillMode;
-    static inline Camera camera{};
     static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
     void setCallbacks(void);
 public:
+    static inline Camera camera{};
     int initSuccess;
     GLDrawWindow(/* args */);
     ~GLDrawWindow();
@@ -50,7 +51,7 @@ public:
     int drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,const std::optional<Texture> & texture);
     // int drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces)    ;
     int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
-    // int drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D);
+    int drawWindow(std::unique_ptr<RenderGroup3DManager> renderGroup3DManager);
     void togglePolygonFillMode();
     void processInput();
     int initGLFWWindow();

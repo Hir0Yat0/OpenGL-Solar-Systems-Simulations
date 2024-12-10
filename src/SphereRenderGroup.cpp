@@ -1,6 +1,6 @@
 #include "SphereRenderGroup.hpp"
 
-std::unique_ptr<RenderGroup3D> SphereRenderGroup::getRenderGroup3D() {
+std::unique_ptr<RenderGroup3D> SphereRenderGroup::getRenderGroup3D(const char * texturePath) {
 
     int initSuccess = 1;
 
@@ -15,7 +15,7 @@ std::unique_ptr<RenderGroup3D> SphereRenderGroup::getRenderGroup3D() {
         initSuccess = 0;
     }
 
-    auto texture = TextureLoader::load("assets/sky-and-grass-24.jpg");
+    auto texture = TextureLoader::load(texturePath);
 
     if (!(*texture).initSuccess) {
         std::cerr << "Texture Initialization Errors" << "\n";

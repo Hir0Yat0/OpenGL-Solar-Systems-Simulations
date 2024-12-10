@@ -364,3 +364,64 @@ int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D){
     return 0;
 
 }
+
+int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3DManager> renderGroup3DManager){
+    glEnable(GL_DEPTH_TEST);
+
+    std::cerr << "Starting Rendering!" << "\n";
+
+    // uncomment this call to draw in wireframe polygons.
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    FrameManager::init();
+
+    // render loop
+    // -----------
+    while (!glfwWindowShouldClose(window))
+    {
+        FrameManager::updateFrame();
+
+        // input
+        // -----
+        // std::cerr << "Processing Input" << "\n";
+        // processInput(window);
+        this->processInput();
+
+        // render
+        // ------
+        // std::cerr << "Clearing Color" << "\n";
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // std::cerr << "Clearing Color" << "\n";
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        /* set model, view, and projection matrices */
+
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, this->camera.renderDistance);
+
+        // camera/view transformation
+        glm::mat4 view = camera.GetViewMatrix();
+
+        // update objects
+
+        Object3D::updateAllObjects();
+
+        // render objects
+
+        (*renderGroup3DManager).renderAll(projection,view);
+
+        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // -------------------------------------------------------------------------------
+        // std::cerr << "Swapping Buffers" << "\n";
+        glfwSwapBuffers(window);
+        // std::cerr << "Polling Events" << "\n";
+        glfwPollEvents();
+    }
+
+    std::cerr << "Done Rendering!" << "\n";
+
+    /* Clean Ups Done In Deconstructors */
+
+    return 0;
+}

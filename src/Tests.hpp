@@ -6,5 +6,9 @@
 #include "TestRenderGroup3D.hpp"
 #include "TestRender2Objects.hpp"
 #include "TestCamera.hpp"
+#include "TestBackground.hpp"
+#include "TestOrbitalObjects.hpp"
+#include "TestOrbitAroundObject.hpp"
+#include "TestSkyBoxTracking.hpp"
 
 #endif // TESTS_HPP
