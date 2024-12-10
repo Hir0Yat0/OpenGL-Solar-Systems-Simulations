@@ -100,6 +100,10 @@ add_executable(sss
             src/TestOrbitAroundObject.hpp
             src/TestOrbitAroundObject.cpp
             src/RenderGroupID.hpp
+            src/TestSkyBoxTracking.hpp
+            src/TestSkyBoxTracking.cpp
+            src/Object3DTracker.hpp
+            src/Object3DTracker.cpp
         
 
 )

@@ -3,7 +3,14 @@
 #include "cmath"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : Front{glm::vec3(0.0f, 0.0f, -1.0f)}, sprintMultiplier{SPRINT_MULTIPLIER}, MovementSpeed{SPEED}, MouseSensitivity{SENSITIVITY}, Zoom{ZOOM} , firstMouse{true}, prevPosX{}, prevPosY{}
+    : Front{glm::vec3(0.0f, 0.0f, -1.0f)}, 
+    sprintMultiplier{SPRINT_MULTIPLIER}, 
+    MovementSpeed{SPEED}, MouseSensitivity{SENSITIVITY}, 
+    Zoom{ZOOM} ,
+    object3D{std::make_shared<Object3D>()}, 
+    firstMouse{true}, 
+    prevPosX{}, 
+    prevPosY{}
 {
     Position = position;
     WorldUp = up;
@@ -81,4 +88,10 @@ void Camera::updateCameraVectors() {
     Front = glm::normalize(front);
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
+
+    // update attached object3D
+    (*this->object3D).position[0] = this->Position[0];
+    (*this->object3D).position[1] = this->Position[1];
+    (*this->object3D).position[2] = this->Position[2];
+
 }

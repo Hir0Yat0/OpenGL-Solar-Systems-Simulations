@@ -15,7 +15,7 @@ int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestOrbitAroundObject();
+    auto tester = TestSkyBoxTracking();
 
     int exitcode = tester.runTest();
 

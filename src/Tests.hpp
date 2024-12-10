@@ -9,5 +9,6 @@
 #include "TestBackground.hpp"
 #include "TestOrbitalObjects.hpp"
 #include "TestOrbitAroundObject.hpp"
+#include "TestSkyBoxTracking.hpp"
 
 #endif // TESTS_HPP

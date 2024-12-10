@@ -6,6 +6,10 @@
 #include "GLFW/glfw3.h"
 #include "glmlib.hpp"
 
+#include "Object3D.hpp"
+
+#include <memory>
+
 class Camera {
 
     private:
@@ -44,6 +48,8 @@ class Camera {
 
     static constexpr float renderDistance = 10000.0f;
     // static constexpr float renderDistance = 1e17;
+
+    std::shared_ptr< Object3D> object3D;
 
     // prev states
     bool firstMouse;
