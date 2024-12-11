@@ -78,6 +78,10 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime, bool is
             // nothing
         }   break;
     }
+    // update attached object3D
+    (*this->object3D).position[0] = this->Position[0];
+    (*this->object3D).position[1] = this->Position[1];
+    (*this->object3D).position[2] = this->Position[2];
 }
 
 void Camera::updateCameraVectors() {
@@ -89,9 +93,6 @@ void Camera::updateCameraVectors() {
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
 
-    // update attached object3D
-    (*this->object3D).position[0] = this->Position[0];
-    (*this->object3D).position[1] = this->Position[1];
-    (*this->object3D).position[2] = this->Position[2];
+    
 
 }
