@@ -16,6 +16,8 @@ namespace FrameManager {
     inline std::chrono::milliseconds deltaTime{};
     inline float deltaTimeSeconds{};
     inline float gameSpeed{1.0f};
+    inline float gameSpeedMultiplier{1.0f};
+    inline float gameSpeedBaseMultiplier{1.0f};
 
     // public:
 
@@ -31,6 +33,8 @@ namespace FrameManager {
     std::chrono::milliseconds scaleDurationByFloat(const std::chrono::milliseconds &duration, float scale);
     void scaleTimeByGameSpeed(void);
     void init(void);
+    void increaseGameSpeed(void);
+    void decreaseGameSpeed(void);
 
 };
 

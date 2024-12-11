@@ -56,6 +56,12 @@ void GLDrawWindow::processInput()
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS){
         camera.ProcessKeyboard(this->camera.DOWN, FrameManager::deltaTimeSeconds, isShiftPressed);
     }
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
+        FrameManager::increaseGameSpeed();
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
+        FrameManager::decreaseGameSpeed();
+    }
 
 }
 
