@@ -67,6 +67,7 @@ int TestMorePlanets::runTest() {
     // (*sphere3).position[1] = -1000.0f;
     (*sphere3).setUniformScale(10.0f);
     (*sphere3).gravityToCentralObject = 1000.0f * 100.0f;
+    (*sphere3).centralObject = orbitalCentral1;
 
     (*sphere3).setAxisZ();
     (*sphere3).angularVelocity = 1.0f / (2.0f * 3.14f);
@@ -94,12 +95,16 @@ int TestMorePlanets::runTest() {
     // constexpr int sphereGroupID = 1;
 
     auto planetsGroupLoader = PlanetsGroupLoader();
-    auto planetRenderGroup = planetsGroupLoader.getPlanets(orbitalCentral1);
+    auto planetRenderGroups = planetsGroupLoader.getPlanets();
 
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::BACKGROUND,std::move( backgroundRenderGroup));
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::SPHERE,std::move( sphereRenderGroup));
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::CENTRAL,std::move(centralObjectRenderGroup));
-    (*sphereRenderGroupManager).addNewGroup(RenderGroupID::PLANETS,std::move(planetRenderGroup));
+    // (*sphereRenderGroupManager).addNewGroup(RenderGroupID::PLANETS,std::move(planetRenderGroup));
+    for (auto &[groupid,planetRenderGroup] : *planetRenderGroups){
+        (*sphereRenderGroupManager).addNewGroup(groupid,std::move(planetRenderGroup));
+    }
+
 
     int exitcode = window.drawWindow(std::move(sphereRenderGroupManager));
 

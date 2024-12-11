@@ -4,7 +4,7 @@
 namespace Scales {
     
     constexpr float distanceFromSunScale = 1.0f / 1.0e+6;
-    constexpr float diameterScale = 1.0f / 1.0e+5;
+    constexpr float diameterScale = 1.0f / 1.0e+3;
 
     constexpr float starSunDiameterKM = 1391400.0f;
     constexpr float planetSunDiameterKM = 1391400.0f;
@@ -18,8 +18,8 @@ namespace Scales {
     constexpr float planetNeptuneDiameterKM = 49528.0f;
     constexpr float planetPlutoDiameterKM = 2376.6f;
 
-    constexpr float starSunDiameterScaledKM = starSunDiameterKM * diameterScale;
-    constexpr float planetSunDiameterScaledKM = planetSunDiameterKM * diameterScale;
+    constexpr float starSunDiameterScaledKM = starSunDiameterKM * diameterScale ;
+    constexpr float planetSunDiameterScaledKM = planetSunDiameterKM * diameterScale ;
     constexpr float planetMercuryDiameterScaledKM = planetMercuryDiameterKM * diameterScale;
     constexpr float planetVenusDiameterScaledKM = planetVenusDiameterKM * diameterScale;
     constexpr float planetEarthDiameterScaledKM = planetEarthDiameterKM  * diameterScale;

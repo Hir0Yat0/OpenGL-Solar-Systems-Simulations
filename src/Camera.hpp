@@ -46,7 +46,7 @@ class Camera {
     float MouseSensitivity;
     float Zoom;
 
-    static constexpr float renderDistance = 10000.0f;
+    static constexpr float renderDistance = 1000000.0f;
     // static constexpr float renderDistance = 1e17;
 
     std::shared_ptr< Object3D> object3D;
