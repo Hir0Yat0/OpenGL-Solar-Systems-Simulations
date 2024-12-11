@@ -50,3 +50,18 @@ void FrameManager::init(void) {
     FrameManager::deltaTimeSeconds = std::chrono::duration<float>(deltaTime).count();
     
 }
+
+void FrameManager::increaseGameSpeed(void) {
+    FrameManager::gameSpeedMultiplier *= 2.0f;
+    FrameManager::gameSpeed = FrameManager::gameSpeedMultiplier * FrameManager::gameSpeedBaseMultiplier;
+}
+
+void FrameManager::decreaseGameSpeed(void) {
+    if (FrameManager::gameSpeedMultiplier <= 1.0f){
+        FrameManager::gameSpeedMultiplier = 1.0f;
+    }
+    else {
+        FrameManager::gameSpeedMultiplier /= 2.0f;
+    }
+    FrameManager::gameSpeed = FrameManager::gameSpeedMultiplier * FrameManager::gameSpeedBaseMultiplier;
+}
