@@ -11,6 +11,8 @@
 
 #include "PlanetsGroupLoader.hpp"
 
+#include "Scales.hpp"
+
 int TestMorePlanets::runTest() {
 
     auto window = GLDrawWindow();
@@ -105,6 +107,9 @@ int TestMorePlanets::runTest() {
         (*sphereRenderGroupManager).addNewGroup(groupid,std::move(planetRenderGroup));
     }
 
+    constexpr float camPosOffset = Scales::starSunDiameterScaledKM + 100.0f;
+
+    window.camera.Position = glm::vec3(camPosOffset);
 
     int exitcode = window.drawWindow(std::move(sphereRenderGroupManager));
 
