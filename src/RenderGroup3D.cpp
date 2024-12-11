@@ -10,6 +10,7 @@
 #include "FrameManager.hpp"
 
 #include "Utils.hpp"
+#include "DebugLevel.hpp"
 
 RenderGroup3D::RenderGroup3D(
     std::unique_ptr<Shape> shape, 
@@ -22,23 +23,33 @@ RenderGroup3D::RenderGroup3D(
 
 };    
 void RenderGroup3D::render(void){
-    std::cerr << "Render Called!" << "\n";
+    if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+        std::cerr << "Render Called!" << "\n";
+    }
     if (this->shader){
-        std::cerr << "Using Shaders!" << "\n";
+        if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+            std::cerr << "Using Shaders!" << "\n";
+        }
         (*this->shader).use();
     }
     if (this->texture){
-        std::cerr << "Using Textures!" << "\n";
+        if constexpr(DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+            std::cerr << "Using Textures!" << "\n";
+        }
         (*this->texture).use();
     }
     if (this->shape){
-        std::cerr << "Using Shapes!" << "\n";
+        if constexpr (DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+            std::cerr << "Using Shapes!" << "\n";
+        }
         (*this->shape).use();
     }
     if (objects && this->shader){
         for (const auto & [id,object] : (*objects)){
             if (object){
-                std::cerr << "Setting Object Attributes!" << "\n";
+                if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+                    std::cerr << "Setting Object Attributes!" << "\n";
+                }
                 // std::cerr << "Rendering ObjectW: " << (*object).id << "\n";
                 (*this->shader).setFloat(std::string("timeMillis"),static_cast<float>(FrameManager::deltaTimeSinceStart.count()));
                 (*this->shader).setFloat(std::string("deltaTimeMillis"),static_cast<float>(FrameManager::deltaTime.count()));
@@ -63,7 +74,9 @@ void RenderGroup3D::render(void){
 
                 if (this->shape){
                     // Utils::printVectorErr((*(*this->shape).vertices));
-                    std::cerr << "Drawing!" << "\n";
+                    if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+                        std::cerr << "Drawing!" << "\n";
+                    }
                     (*this->shape).draw();
                 }
             }

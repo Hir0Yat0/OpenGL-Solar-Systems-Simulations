@@ -15,7 +15,7 @@ int main(){
     
     std::cout << "Hello Worlds!" << "\n";
     
-    auto tester = TestSkyBoxTracking();
+    auto tester = TestMorePlanets();
 
     int exitcode = tester.runTest();
 

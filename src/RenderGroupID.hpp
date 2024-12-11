@@ -8,6 +8,7 @@ enum RenderGroupID {
     SPHERE,
     BACKGROUND,
     CENTRAL,
+    PLANETS,
 };
 
 #endif // RENDERGROUPID_HPP

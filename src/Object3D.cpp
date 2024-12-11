@@ -8,6 +8,8 @@
 #include "Utils.hpp"
 #include "glmutils.hpp"
 
+#include "DebugLevel.hpp"
+
 bool Object3D::isZeroVector(const glm::vec3 &vec3) const {
     constexpr auto epsilon = glm::epsilon<float>();
     constexpr auto zeroVec = glm::vec3(0.0f);
@@ -59,13 +61,21 @@ void Object3D::update(const float& deltaTimeSeconds) {
 
 }
 void Object3D::updateAllObjects(void) {
-    std::cerr << "Starting updateAllObjects!" << "\n";
-    for (auto & [objId,obj] : objs){
-        std::cerr << "Updating Objects!" << "\n";
-        obj->update(FrameManager::deltaTimeSeconds);
-        obj->printObjectInfo();
+    if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+        std::cerr << "Starting updateAllObjects!" << "\n";
     }
-    std::cerr << "Done updateAllObjects!" << "\n";
+    for (auto & [objId,obj] : objs){
+        if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+            std::cerr << "Updating Objects!" << "\n";
+        }
+        obj->update(FrameManager::deltaTimeSeconds);
+        if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+            obj->printObjectInfo();
+        }
+    }
+    if constexpr( DebugLevel::DBGLVL >= DebugLevel::DebugLevel::LOGGING){
+        std::cerr << "Done updateAllObjects!" << "\n";
+    }
 }
 
 void Object3D::printObjectInfo(void) const {
