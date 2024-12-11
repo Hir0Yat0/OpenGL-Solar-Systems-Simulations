@@ -109,6 +109,7 @@ add_executable(sss
             src/TestMorePlanets.hpp
             src/TestMorePlanets.cpp
             src/DebugLevel.hpp
+            src/Scales.hpp
         
 
 )
