@@ -104,6 +104,12 @@ add_executable(sss
             src/TestSkyBoxTracking.cpp
             src/Object3DTracker.hpp
             src/Object3DTracker.cpp
+            src/PlanetsGroupLoader.hpp
+            # src/PlanetsGroupLoader.cpp
+            src/TestMorePlanets.hpp
+            src/TestMorePlanets.cpp
+            src/DebugLevel.hpp
+            src/Scales.hpp
         
 
 )

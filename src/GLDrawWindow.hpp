@@ -20,6 +20,7 @@
 #include "glmlib.hpp"
 #include "Camera.hpp"
 
+#include "DebugLevel.hpp"
 class GLDrawWindow
 {
 private:
