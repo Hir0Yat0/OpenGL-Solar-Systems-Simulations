@@ -3,7 +3,7 @@
 
 namespace Scales {
     
-    constexpr float distanceFromSunScale = 1.0f / 1.0e+6;
+    constexpr float distanceFromSunScale = 1.0f / 1.0e+6 * 5.0f;
     constexpr float diameterScale = 1.0f / 1.0e+3;
 
     constexpr float starSunDiameterKM = 1391400.0f;
@@ -53,6 +53,10 @@ namespace Scales {
     constexpr float planetUranusDistanceFromSunScaledKM = planetUranusDistanceFromSunKM * distanceFromSunScale;
     constexpr float planetNeptuneDistanceFromSunScaledKM = planetNeptuneDistanceFromSunKM * distanceFromSunScale;  
     constexpr float planetPlutoDistanceFromSunScaledKM = planetPlutoDistanceFromSunKM * distanceFromSunScale;
+
+    constexpr float planetDistanceLinearOffsetKM = planetSunDiameterScaledKM * 1.0f;
+    constexpr float planetDistanceLinearKM = planetJupiterDiameterScaledKM + 100.0f;
+    constexpr float gravityScale = 1000.0f;
 
 }; // namespace Scales
 

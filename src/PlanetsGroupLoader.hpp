@@ -28,13 +28,13 @@ class PlanetsGroupLoader {
         (*planetMercury).setUniformScale(Scales::planetMercuryDiameterScaledKM);
         (*planetMercury).setAxisY();
         (*planetMercury).angularVelocity = 1.0f;
-        (*planetMercury).position[2] = Scales::planetMercuryDistanceFromSunScaledKM;
-        (*planetMercury).velocity[0] = 10.0f;   
-        (*planetMercury).gravityToCentralObject = Scales::planetMercuryDiameterKM ;
+        (*planetMercury).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 1.0f;
+        (*planetMercury).velocity[2] = -10.0f * 7.0f * 1.0f;//2.0f;   
+        (*planetMercury).gravityToCentralObject = Scales::planetMercuryDiameterKM * Scales::gravityScale * 1.5f;
         (*planetMercury).centralObject = centralObject;
 
         // add planets
-        auto planetMercuryRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/mercurymap.jpg");
+        auto planetMercuryRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/2k_mercury.jpg");
         (*planetMercuryRenderGroup).add(planetMercury);
 
 
@@ -51,14 +51,14 @@ class PlanetsGroupLoader {
         // configure planets
         (*planetVenus).setUniformScale(Scales::planetVenusDiameterScaledKM);
         (*planetVenus).setAxisY();
-        (*planetVenus).angularVelocity = 1.0f;
-        (*planetVenus).position[0] = Scales::planetVenusDistanceFromSunScaledKM ;
-        (*planetVenus).velocity[2] = 10.0f;   
-        (*planetVenus).gravityToCentralObject = Scales::planetVenusDiameterKM ;
+        (*planetVenus).angularVelocity = -1.0f;
+        (*planetVenus).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 2.0f;
+        (*planetVenus).velocity[2] = -80.0f;   
+        (*planetVenus).gravityToCentralObject = Scales::planetVenusDiameterKM * Scales::gravityScale;
         (*planetVenus).centralObject = centralObject;
 
         // add planets
-        auto planetVenusRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/2k_mercury.jpg");
+        auto planetVenusRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/2k_venus_surface.jpg");
         (*planetVenusRenderGroup).add(planetVenus);
 
 
@@ -76,9 +76,9 @@ class PlanetsGroupLoader {
         (*planetEarth).setUniformScale(Scales::planetEarthDiameterScaledKM);
         (*planetEarth).setAxisY();
         (*planetEarth).angularVelocity = 1.0f;
-        (*planetEarth).position[0] = Scales::planetEarthDistanceFromSunScaledKM;
-        (*planetEarth).velocity[0] = 10.0f;   
-        (*planetEarth).gravityToCentralObject = Scales::planetVenusDiameterKM ;
+        (*planetEarth).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 3.0f;
+        (*planetEarth).velocity[2] = -80.0f;   
+        (*planetEarth).gravityToCentralObject = Scales::planetEarthDiameterKM * Scales::gravityScale;
         (*planetEarth).centralObject = centralObject;
 
         // add planets
@@ -100,9 +100,11 @@ class PlanetsGroupLoader {
         (*planetMars).setUniformScale(Scales::planetMarsDiameterScaledKM);
         (*planetMars).setAxisY();
         (*planetMars).angularVelocity = 1.0f;
-        (*planetMars).position[0] = Scales::planetMarsDistanceFromSunScaledKM;
-        (*planetMars).velocity[0] = 10.0f;   
-        (*planetMars).gravityToCentralObject = Scales::planetMarsDistanceFromSunKM ;
+        (*planetMars).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 4.0f;
+        (*planetMars).velocity[2] = -20.0f * 1.0f * 1.0f * 2.5f ;   
+        // (*planetMars).gravityToCentralObject = Scales::planetMarsDistanceFromSunKM ;
+        // (*planetMars).gravityToCentralObject = Scales::planetMarsDistanceFromSunScaledKM ;
+        (*planetMars).gravityToCentralObject = Scales::planetMarsDiameterKM * Scales::gravityScale;
         (*planetMars).centralObject = centralObject;
 
         // add planets
@@ -124,9 +126,9 @@ class PlanetsGroupLoader {
         (*planetJupiter).setUniformScale(Scales::planetJupiterDiameterScaledKM);
         (*planetJupiter).setAxisY();
         (*planetJupiter).angularVelocity = 1.0f;
-        (*planetJupiter).position[0] = Scales::planetJupiterDistanceFromSunScaledKM;
-        (*planetJupiter).velocity[0] = 10.0f;   
-        (*planetJupiter).gravityToCentralObject = Scales::planetJupiterDiameterKM ;
+        (*planetJupiter).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 5.0f;
+        (*planetJupiter).velocity[2] = -10.0f * 10.0f * 2.0f * 1.0f;   
+        (*planetJupiter).gravityToCentralObject = Scales::planetJupiterDiameterKM  * Scales::gravityScale;
         (*planetJupiter).centralObject = centralObject;
 
         // add planets
@@ -148,9 +150,9 @@ class PlanetsGroupLoader {
         (*planetSaturn).setUniformScale(Scales::planetSaturnDiameterScaledKM);
         (*planetSaturn).setAxisY();
         (*planetSaturn).angularVelocity = 1.0f;
-        (*planetSaturn).position[0] = Scales::planetSaturnDistanceFromSunScaledKM;
-        (*planetSaturn).velocity[0] = 10.0f;   
-        (*planetSaturn).gravityToCentralObject = Scales::planetSaturnDiameterKM ;
+        (*planetSaturn).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 6.0f;
+        (*planetSaturn).velocity[2] = -200.0f;   
+        (*planetSaturn).gravityToCentralObject = Scales::planetSaturnDiameterKM * Scales::gravityScale;
         (*planetSaturn).centralObject = centralObject;
 
         // add planets
@@ -172,9 +174,9 @@ class PlanetsGroupLoader {
         (*planetUranus).setUniformScale(Scales::planetUranusDiameterScaledKM);
         (*planetUranus).setAxisY();
         (*planetUranus).angularVelocity = 1.0f;
-        (*planetUranus).position[0] = Scales::planetUranusDistanceFromSunScaledKM;
-        (*planetUranus).velocity[0] = 10.0f;   
-        (*planetUranus).gravityToCentralObject = Scales::planetUranusDiameterKM ;
+        (*planetUranus).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 7.0f;
+        (*planetUranus).velocity[2] = -120.0f ;   
+        (*planetUranus).gravityToCentralObject = Scales::planetUranusDiameterKM * Scales::gravityScale;
         (*planetUranus).centralObject = centralObject;
 
         // add planets
@@ -196,9 +198,9 @@ class PlanetsGroupLoader {
         (*planetNeptune).setUniformScale(Scales::planetNeptuneDiameterScaledKM);
         (*planetNeptune).setAxisY();
         (*planetNeptune).angularVelocity = 1.0f;
-        (*planetNeptune).position[0] = Scales::planetNeptuneDistanceFromSunScaledKM;
-        (*planetNeptune).velocity[0] = 10.0f;   
-        (*planetNeptune).gravityToCentralObject = Scales::planetNeptuneDiameterKM ;
+        (*planetNeptune).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 8.0f;
+        (*planetNeptune).velocity[2] = -120.0f ;   
+        (*planetNeptune).gravityToCentralObject = Scales::planetNeptuneDiameterKM * Scales::gravityScale;
         (*planetNeptune).centralObject = centralObject;
 
         // add planets
@@ -220,9 +222,9 @@ class PlanetsGroupLoader {
         (*planetPluto).setUniformScale(Scales::planetPlutoDiameterScaledKM);
         (*planetPluto).setAxisY();
         (*planetPluto).angularVelocity = 1.0f;
-        (*planetPluto).position[0] = Scales::planetPlutoDistanceFromSunScaledKM;
-        (*planetPluto).velocity[0] = 10.0f;   
-        (*planetPluto).gravityToCentralObject = Scales::planetPlutoDiameterKM ;
+        (*planetPluto).position[0] = Scales::planetDistanceLinearOffsetKM + Scales::planetDistanceLinearKM * 9.0f;
+        (*planetPluto).velocity[2] = -20.0f;   
+        (*planetPluto).gravityToCentralObject = Scales::planetPlutoDiameterKM * Scales::gravityScale;
         (*planetPluto).centralObject = centralObject;
 
         // add planets
@@ -245,7 +247,7 @@ class PlanetsGroupLoader {
         // configure planets
         (*planetSun).setUniformScale(Scales::planetSunDiameterScaledKM);
         (*planetSun).setAxisY();
-        (*planetSun).angularVelocity = 1.0f;
+        (*planetSun).angularVelocity = 0.1f;
         (*planetSun).position[0] = Scales::planetSunDistanceFromSunScaledKM;
         // (*planetSun).velocity[0] = 10.0f;   
         // (*planetSun).gravityToCentralObject = 1000.0f * 1.0e+3 ;

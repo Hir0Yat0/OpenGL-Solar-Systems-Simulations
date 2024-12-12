@@ -28,11 +28,12 @@ int TestMorePlanets::runTest() {
     // auto background = sphereObjectFactory.getSharedObject3D();
     auto background = std::make_shared<Object3DTracker>();
 
-    (*background).setUniformScale(5000.0f);
+    // (*background).setUniformScale(5000.0f);
     // (*background).setUniformScale(1e7);
     // (*background).setUniformScale(10.0f);
+    (*background).setUniformScale(10000.0f);
     (*background).angularVelocity = 0.001f;
-    FrameManager::gameSpeed = 1.0f;
+    // FrameManager::gameSpeed = 1.0f;
     (*background).trackedObject3D = window.camera.object3D;
 
     auto sphere1 = sphereObjectFactory.getSharedObject3D();

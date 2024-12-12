@@ -137,8 +137,9 @@ std::unique_ptr<std::vector<float>> SphereFactory::getVertices1(void) {
             t = static_cast<float>(i) / static_cast<float>(stackStepCount);
             // texCoords.push_back(s);
             // texCoords.push_back(t);
-            (*vertices).push_back(s);
+            (*vertices).push_back(-s);
             (*vertices).push_back(t);
+
         }
     }
 

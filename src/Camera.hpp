@@ -17,7 +17,7 @@ class Camera {
     // Default camera values
     static constexpr float YAW = -90.0f;
     static constexpr float PITCH = 0.0f;
-    static constexpr float SPEED = 2.5f;
+    static constexpr float SPEED = 200.5f;
     static constexpr float SENSITIVITY = 0.3f;
     static constexpr float ZOOM = 45.0f;
     static constexpr float SPRINT_MULTIPLIER = 10.0f;
