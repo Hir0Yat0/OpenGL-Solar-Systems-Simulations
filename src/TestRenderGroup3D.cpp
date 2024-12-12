@@ -1,5 +1,10 @@
 #include "TestRenderGroup3D.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_RENDER_GROUP_3D == 1
+
 #include "Object3D.hpp"
 #include "RenderGroup3D.hpp"
 #include "GLDrawWindow.hpp"
@@ -36,3 +41,6 @@ int TestRenderGroup3D::runTest() {
 
     return exitcode;
 }
+
+#endif
+#endif
