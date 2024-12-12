@@ -1,7 +1,7 @@
 #include "Texture.hpp"
 
-Texture::Texture(unsigned int ID, int width, int height, int nrChannels) 
-: ID{ID}, width{width}, height{height}, nrChannels{nrChannels}
+Texture::Texture(unsigned int ID, int width, int height, int nrChannels, int initSuccess) 
+: ID{ID}, width{width}, height{height}, nrChannels{nrChannels}, initSuccess{initSuccess}
 {
     
 }

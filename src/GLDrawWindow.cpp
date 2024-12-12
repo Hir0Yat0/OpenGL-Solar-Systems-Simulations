@@ -2,7 +2,7 @@
 #include <chrono>
 
 GLDrawWindow::GLDrawWindow(/* args */)
-: SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
+: window{nullptr}, SCR_WIDTH{800}, SCR_HEIGHT{600}, polygonFillMode{true}, initSuccess{0}
 {
     this->initSuccess = this->initGLFWWindow() == 0;
 }
@@ -31,18 +31,86 @@ void GLDrawWindow::processInput()
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
         glfwSetWindowShouldClose(this->window, true);
     }
-    if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS){
+    if (glfwGetKey(this->window, GLFW_KEY_F) == GLFW_PRESS){
         this->togglePolygonFillMode();
     }
+    // camera movements
+
+    const bool isShiftPressed = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.FORWARD, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.BACKWARD, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.LEFT, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.RIGHT, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.UP, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS){
+        camera.ProcessKeyboard(this->camera.DOWN, FrameManager::deltaTimeSeconds, isShiftPressed);
+    }
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
+        FrameManager::increaseGameSpeed();
+    }
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
+        FrameManager::decreaseGameSpeed();
+    }
+
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void GLDrawWindow::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void GLDrawWindow::framebuffer_size_callback([[maybe_unused]]GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+}
+
+
+// glfw: whenever the mouse moves, this callback is called
+// -------------------------------------------------------
+void GLDrawWindow::mouse_callback([[maybe_unused]]GLFWwindow * window, double xposIn, double yposIn)
+{
+    const float xpos{static_cast<float>(xposIn)};
+    const float ypos {static_cast<float>(yposIn)};
+
+    if ( GLDrawWindow::camera.firstMouse)
+    {
+        GLDrawWindow::camera.prevPosX = xpos;
+        GLDrawWindow::camera.prevPosY = ypos;
+        GLDrawWindow::camera.firstMouse = false;
+    }
+
+    const float xoffset = xpos - GLDrawWindow::camera.prevPosX;
+    const float yoffset = GLDrawWindow::camera.prevPosY - ypos; // reversed since y-coordinates go from bottom to top
+
+    GLDrawWindow::camera.prevPosX = xpos;
+    GLDrawWindow::camera.prevPosY = ypos;
+
+
+    GLDrawWindow::camera.ProcessMouseMovement(xoffset,yoffset,true);
+}
+
+void GLDrawWindow::setCallbacks(void) {
+    glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
+    glfwSetCursorPosCallback(this->window,this->mouse_callback);
+    glfwSetScrollCallback(this->window,this->scroll_callback);
+
+}
+
+// glfw: whenever the mouse scroll wheel scrolls, this callback is called
+// ----------------------------------------------------------------------
+void GLDrawWindow::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    GLDrawWindow::camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 int GLDrawWindow::initGLFWWindow(){
@@ -67,11 +135,14 @@ int GLDrawWindow::initGLFWWindow(){
         return -1;
     }
     glfwMakeContextCurrent(this->window);
-    glfwSetFramebufferSizeCallback(this->window, this->framebuffer_size_callback);
+    this->setCallbacks();
+
+    // capture mouse to windows
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
         std::cerr << "Failed to initialize GLAD" << "\n";
         glfwTerminate();
@@ -185,7 +256,59 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<Shape> & shapes,
     return 0;
 }
 
-int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces){    
+// int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & shapeSurfaces){    
+
+//     glEnable(GL_DEPTH_TEST);
+
+//     std::cerr << "Starting Rendering!" << "\n";
+
+//     // uncomment this call to draw in wireframe polygons.
+//     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+//     const auto startTime = std::chrono::system_clock::now();
+
+//     // render loop
+//     // -----------
+//     while (!glfwWindowShouldClose(window))
+//     {
+//         // input
+//         // -----
+//         // std::cerr << "Processing Input" << "\n";
+//         // processInput(window);
+//         this->processInput();
+
+//         // render
+//         // ------
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//         // std::cerr << "Clearing Color" << "\n";
+//         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+//         shaderProgram.use();
+//         shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
+//         for (auto &shapeSurface : shapeSurfaces){
+//             // shapeSurface.texture.use();
+//             // shapeSurface.shape.use();
+//             // shapeSurface.shape.draw();
+//             shapeSurface.use();
+//             shapeSurface.draw();
+//         }
+//         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+//         // -------------------------------------------------------------------------------
+//         // std::cerr << "Swapping Buffers" << "\n";
+//         glfwSwapBuffers(window);
+//         // std::cerr << "Polling Events" << "\n";
+//         glfwPollEvents();
+//     }
+
+//     std::cerr << "Done Rendering!" << "\n";
+
+//     /* Clean Ups Done In Deconstructors */
+
+//     return 0;
+// }
+
+int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D){
 
     glEnable(GL_DEPTH_TEST);
 
@@ -194,12 +317,14 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
     // uncomment this call to draw in wireframe polygons.
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    const auto startTime = std::chrono::system_clock::now();
+    FrameManager::init();
 
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        FrameManager::updateFrame();
+
         // input
         // -----
         // std::cerr << "Processing Input" << "\n";
@@ -213,15 +338,85 @@ int GLDrawWindow::drawWindow(Shader &shaderProgram, std::vector<ShapeSurface> & 
         // std::cerr << "Clearing Color" << "\n";
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shaderProgram.use();
-        shaderProgram.setFloat("time",std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - startTime).count() / 1000.0);
-        for (auto &shapeSurface : shapeSurfaces){
-            // shapeSurface.texture.use();
-            // shapeSurface.shape.use();
-            // shapeSurface.shape.draw();
-            shapeSurface.use();
-            shapeSurface.draw();
-        }
+
+        /* set model, view, and projection matrices */
+
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, 100.0f);
+
+        // camera/view transformation
+        glm::mat4 view = camera.GetViewMatrix();
+
+        // update objects
+
+        Object3D::updateAllObjects();
+
+        // render objects
+
+        (*renderGroup3D).render(projection,view);
+
+        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // -------------------------------------------------------------------------------
+        // std::cerr << "Swapping Buffers" << "\n";
+        glfwSwapBuffers(window);
+        // std::cerr << "Polling Events" << "\n";
+        glfwPollEvents();
+    }
+
+    std::cerr << "Done Rendering!" << "\n";
+
+    /* Clean Ups Done In Deconstructors */
+
+    return 0;
+
+}
+
+int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3DManager> renderGroup3DManager){
+    glEnable(GL_DEPTH_TEST);
+
+    std::cerr << "Starting Rendering!" << "\n";
+
+    // uncomment this call to draw in wireframe polygons.
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    FrameManager::init();
+
+    // render loop
+    // -----------
+    while (!glfwWindowShouldClose(window))
+    {
+        FrameManager::updateFrame();
+
+        // input
+        // -----
+        // std::cerr << "Processing Input" << "\n";
+        // processInput(window);
+        this->processInput();
+
+        // render
+        // ------
+        // std::cerr << "Clearing Color" << "\n";
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // std::cerr << "Clearing Color" << "\n";
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        /* set model, view, and projection matrices */
+
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, this->camera.renderDistance);
+
+        // camera/view transformation
+        glm::mat4 view = camera.GetViewMatrix();
+
+        // update objects
+
+        Object3D::updateAllObjects();
+
+        // render objects
+
+        (*renderGroup3DManager).renderAll(projection,view);
+
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         // std::cerr << "Swapping Buffers" << "\n";

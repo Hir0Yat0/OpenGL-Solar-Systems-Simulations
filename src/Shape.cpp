@@ -3,7 +3,7 @@
 #include<algorithm>
 
 Shape::Shape(const std::vector<float>& vertices, const std::vector<unsigned int>& indices) 
-: vertices{vertices}, indices{indices}, vao{}, ebo{}, vbo{}
+: vertices{vertices}, indices{indices}, vao{}, vbo{}, ebo{}
 {
     // if (!withTextures){
     //     this->initShape();
