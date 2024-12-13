@@ -19,7 +19,7 @@ class SphereRenderGroup {
 
     public:
 
-    std::unique_ptr<RenderGroup3D> getRenderGroup3D(const char * texturePath = "assets/sky-and-grass-24.jpg");
+    std::unique_ptr<RenderGroup3D> getRenderGroup3D(const char * texturePath = "assets/sky-and-grass-24.jpg", const char * vertShaderPath = "src/shaders/object3d.vert",const char * fragShaderPath = "src/shaders/object3d.frag",bool isLightSource = false);
 
 };
 

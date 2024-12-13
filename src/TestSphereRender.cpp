@@ -1,5 +1,10 @@
 #include "TestSphereRender.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_SPHERE_RENDER == 1
+
 #include "Shape.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
@@ -41,3 +46,6 @@ int TestSphereRender::runTest() {
 
     return exitcode;
 }
+
+#endif
+#endif

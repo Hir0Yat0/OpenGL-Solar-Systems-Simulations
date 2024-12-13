@@ -5,6 +5,11 @@
 #include "OrbitalObjectFactory.hpp"
 #include "OrbitalObject3D.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_ORBITAL_OBJECTS == 1
+
 int TestOrbitalObjects::runTest() {
 
     auto window = GLDrawWindow();
@@ -82,3 +87,6 @@ int TestOrbitalObjects::runTest() {
 
     // return 0;
 }
+
+#endif
+#endif

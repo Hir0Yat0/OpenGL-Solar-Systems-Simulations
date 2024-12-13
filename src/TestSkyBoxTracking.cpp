@@ -1,5 +1,10 @@
 #include "TestSkyBoxTracking.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_SKYBOX_TRACKING == 1
+
 #include "lib3d.hpp"
 
 #include "OrbitalObjectFactory.hpp"
@@ -101,3 +106,6 @@ int TestSkyBoxTracking::runTest() {
 
     // return 0;
 }
+
+#endif
+#endif
