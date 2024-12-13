@@ -83,10 +83,12 @@ void RenderGroup3D::render(void){
         }
     }
 }
-void RenderGroup3D::render(const glm::mat4& projection, const glm::mat4& view) {
+void RenderGroup3D::render(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) {
 
     (*this->shader).setMat4("projection", projection);
     (*this->shader).setMat4("view", view);
+    (*this->shader).setVec3("lightPos",glm::vec3(1.0f,0.0f,0.0f)); // sun position
+    (*this->shader).setVec3("viewPos",cameraPos); // camera position
     this->render();
 
 };

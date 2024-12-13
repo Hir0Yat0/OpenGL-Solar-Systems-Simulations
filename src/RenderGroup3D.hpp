@@ -33,7 +33,7 @@ class RenderGroup3D {
     );
     virtual ~RenderGroup3D() = default;
     virtual void render(void);
-    virtual void render([[maybe_unused]] const glm::mat4 &projection, [[maybe_unused]] const glm::mat4 &view);
+    virtual void render([[maybe_unused]] const glm::mat4 &projection, [[maybe_unused]] const glm::mat4 &view, [[maybe_unused]] const glm::vec3& cameraPos);
     virtual void add(std::shared_ptr<Object3D> object);
     virtual void remove(size_t objectID);
 

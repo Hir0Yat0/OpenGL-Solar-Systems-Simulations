@@ -1,5 +1,10 @@
 #include "TestMorePlanets.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_MORE_PLANETS == 1
+
 #include "lib3d.hpp"
 
 #include "OrbitalObjectFactory.hpp"
@@ -98,7 +103,7 @@ int TestMorePlanets::runTest() {
     // constexpr int sphereGroupID = 1;
 
     auto planetsGroupLoader = PlanetsGroupLoader();
-    auto planetRenderGroups = planetsGroupLoader.getPlanets();
+    auto planetRenderGroups = planetsGroupLoader.getPlanets(window);
 
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::BACKGROUND,std::move( backgroundRenderGroup));
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::SPHERE,std::move( sphereRenderGroup));
@@ -118,3 +123,6 @@ int TestMorePlanets::runTest() {
 
     // return 0;
 }
+
+#endif
+#endif

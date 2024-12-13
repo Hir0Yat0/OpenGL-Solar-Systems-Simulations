@@ -25,8 +25,8 @@ class RenderGroup3DManager {
     void addNewGroup(int groupid, std::unique_ptr<RenderGroup3D> rendergroup3d);
     void addToGroup(int groupid, std::shared_ptr<Object3D> object3d);
     void render(int groupid);
-    void render(int groupid, const glm::mat4& projection, const glm::mat4& view);
-    void renderAll(const glm::mat4& projection, const glm::mat4& view);
+    void render(int groupid, [[maybe_unused]] const glm::mat4& projection, [[maybe_unused]] const glm::mat4& view, [[maybe_unused]] const glm::vec3& cameraPos);
+    void renderAll([[maybe_unused]] const glm::mat4& projection, [[maybe_unused]] const glm::mat4& view, [[maybe_unused]] const glm::vec3& cameraPos);
 
 };
 

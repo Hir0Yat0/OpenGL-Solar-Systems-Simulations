@@ -11,5 +11,6 @@
 #include "TestOrbitAroundObject.hpp"
 #include "TestSkyBoxTracking.hpp"
 #include "TestMorePlanets.hpp"
+#include "TestLightings.hpp"
 
 #endif // TESTS_HPP

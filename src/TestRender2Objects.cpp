@@ -1,5 +1,10 @@
 #include "TestRender2Objects.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_RENDER_2_OBJECTS == 1
+
 #include "Object3D.hpp"
 #include "RenderGroup3D.hpp"
 #include "GLDrawWindow.hpp"
@@ -50,3 +55,6 @@ int TestRender2Objects::runTest() {
 
     // return 0;
 }
+
+#endif
+#endif

@@ -21,7 +21,7 @@ class Shape {
     void draw();
     template<class T>
     static void groupVertexAttributes(std::vector<T> &out_verticeAttributes, const std::vector<std::vector<T>> &vertexAttributes, const std::vector<unsigned int> &eachAttributesLength);
-    void initShapeWithTexture();
+    void initShapeWithTexture(bool isLightSource);
 };
 
 #endif // SHAPE_HPP

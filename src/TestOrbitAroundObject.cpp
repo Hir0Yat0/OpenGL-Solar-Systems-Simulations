@@ -1,5 +1,10 @@
 #include "TestOrbitAroundObject.hpp"
 
+#include "TestActivation.hpp"
+
+#if TEST_MODE == 1
+#if TEST_MODE_TEST_ORBIT_AROUND_OBJECT == 1
+
 #include "lib3d.hpp"
 
 #include "OrbitalObjectFactory.hpp"
@@ -96,3 +101,6 @@ int TestOrbitAroundObject::runTest() {
 
     // return 0;
 }
+
+#endif
+#endif

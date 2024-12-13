@@ -1,14 +1,14 @@
 #include "SphereRenderGroup.hpp"
 
-std::unique_ptr<RenderGroup3D> SphereRenderGroup::getRenderGroup3D(const char * texturePath) {
+std::unique_ptr<RenderGroup3D> SphereRenderGroup::getRenderGroup3D(const char * texturePath,const char * vertShaderPath,const char * fragShaderPath, bool isLightSource) {
 
     int initSuccess = 1;
 
     auto sphereFactory = SphereFactory();
 
-    auto shape = sphereFactory.getShape();
+    auto shape = sphereFactory.getSphere(isLightSource);
 
-    auto shader = ShaderLoader::loadShader("src/shaders/object3d.vert","src/shaders/object3d.frag");
+    auto shader = ShaderLoader::loadShader(vertShaderPath,fragShaderPath);
 
     if (!(*shader).shaderStatus){
         std::cerr << "Shader Initialization Errors" << "\n";
