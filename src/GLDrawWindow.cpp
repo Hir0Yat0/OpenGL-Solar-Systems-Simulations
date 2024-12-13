@@ -353,7 +353,7 @@ int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3D> renderGroup3D){
 
         // render objects
 
-        (*renderGroup3D).render(projection,view);
+        (*renderGroup3D).render(projection,view, this->camera.Position);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -415,7 +415,7 @@ int GLDrawWindow::drawWindow(std::unique_ptr<RenderGroup3DManager> renderGroup3D
 
         // render objects
 
-        (*renderGroup3DManager).renderAll(projection,view);
+        (*renderGroup3DManager).renderAll(projection,view, this->camera.Position);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

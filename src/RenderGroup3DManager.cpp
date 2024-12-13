@@ -12,12 +12,12 @@ void RenderGroup3DManager::render(int groupid) {
     (*this->rendergroups3d[groupid]).render();
 }
 
-void RenderGroup3DManager::render(int groupid, const glm::mat4& projection, const glm::mat4& view) {
-    (*this->rendergroups3d[groupid]).render(projection,view);
+void RenderGroup3DManager::render(int groupid, const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) {
+    (*this->rendergroups3d[groupid]).render(projection,view,cameraPos);
 }
 
-void RenderGroup3DManager::renderAll(const glm::mat4& projection, const glm::mat4& view) {
+void RenderGroup3DManager::renderAll(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos) {
     for (auto & [groupid, renderGroup3D] : this->rendergroups3d){
-        (*renderGroup3D).render(projection,view);
+        (*renderGroup3D).render(projection,view,cameraPos);
     }
 }
