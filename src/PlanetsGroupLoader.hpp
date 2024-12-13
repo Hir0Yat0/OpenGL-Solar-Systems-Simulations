@@ -12,6 +12,8 @@
 #include "OrbitalObjectFactory.hpp"
 #include "OrbitalObject3D.hpp"
 #include "RenderGroupID.hpp"
+#include "Object3DTracker.hpp"
+#include "GLDrawWindow.hpp"
 
 #include "Scales.hpp"   
 
@@ -262,7 +264,7 @@ class PlanetsGroupLoader {
     constexpr std::unique_ptr<RenderGroup3D> getPlanetSun(std::shared_ptr<Object3D> planetSun) const{
 
         // add planets
-        auto planetSunRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/2k_sun.jpg");
+        auto planetSunRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/2k_sun.jpg","src/shaders/lightsourceobject3d.vert","src/shaders/lightsourceobject3d.frag",true);
         (*planetSunRenderGroup).add(planetSun);
 
 
@@ -270,11 +272,24 @@ class PlanetsGroupLoader {
 
 
     };
+
+    constexpr std::unique_ptr<RenderGroup3D> getSkyBox(const GLDrawWindow &window) const{
+
+        auto background = std::make_shared<Object3DTracker>();
+        (*background).setUniformScale(10000.0f);
+        (*background).angularVelocity = 0.001f;
+        (*background).trackedObject3D = window.camera.object3D;
+        auto backgroundRenderGroup = SphereRenderGroup().getRenderGroup3D("assets/galaxy-6972265_1920.jpg","src/shaders/lightsourceobject3d.vert","src/shaders/lightsourceobject3d.frag",true);
+        (*backgroundRenderGroup).add(background);
+
+        return backgroundRenderGroup;
+
+    };
     
 
     public:
 
-    constexpr std::unique_ptr<std::unordered_map< int,std::unique_ptr<RenderGroup3D> >> getPlanets() const{
+    constexpr std::unique_ptr<std::unordered_map< int,std::unique_ptr<RenderGroup3D> >> getPlanets(const GLDrawWindow &window) const{
 
         auto planets = std::make_unique<std::unordered_map< int,std::unique_ptr<RenderGroup3D> >>();
 
@@ -290,6 +305,7 @@ class PlanetsGroupLoader {
         (*planets)[RenderGroupID::PLANET_URANUS] = this->getPlanetUranus(planetSun);
         (*planets)[RenderGroupID::PLANET_NEPTUNE] = this->getPlanetNeptune(planetSun);    
         (*planets)[RenderGroupID::PLANET_PLUTO] = this->getPlanetPluto(planetSun);  
+        (*planets)[RenderGroupID::BACKGROUND] = this->getSkyBox(window);
 
         return planets;
     };

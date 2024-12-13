@@ -16,7 +16,9 @@ class TestLightings: public Tester {
 
     public:
 
-    virtual int runTest() override;
+    virtual ~TestLightings() = default;
+
+    int runTest() override;
 
 };
 

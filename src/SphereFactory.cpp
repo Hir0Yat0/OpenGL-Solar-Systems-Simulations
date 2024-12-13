@@ -98,7 +98,7 @@ std::unique_ptr<std::vector<float>> SphereFactory::getVertices1(void) {
     */
 
     float x{}, y{}, z{}, xy{};                              // vertex position
-    // float nx{}, ny{}, nz{}, lengthInv = 1.0f / radius;    // vertex normal
+    float nx{}, ny{}, nz{}, lengthInv = 1.0f / radius;    // vertex normal
     float s{}, t{};                                     // vertex texCoord
 
     float sectorStep = sectorStepSizeRad;
@@ -124,14 +124,6 @@ std::unique_ptr<std::vector<float>> SphereFactory::getVertices1(void) {
             (*vertices).push_back(y);
             (*vertices).push_back(z);
 
-            // normalized vertex normal (nx, ny, nz)
-            // nx = x * lengthInv;
-            // ny = y * lengthInv;
-            // nz = z * lengthInv;
-            // normals.push_back(nx);
-            // normals.push_back(ny);
-            // normals.push_back(nz);
-
             // vertex tex coord (s, t) range between [0, 1]
             s = static_cast<float>(j) / static_cast<float>(sectorStepCount);
             t = static_cast<float>(i) / static_cast<float>(stackStepCount);
@@ -140,6 +132,17 @@ std::unique_ptr<std::vector<float>> SphereFactory::getVertices1(void) {
             (*vertices).push_back(-s);
             (*vertices).push_back(t);
 
+
+            // normalized vertex normal (nx, ny, nz)
+            nx = x * lengthInv;
+            ny = y * lengthInv;
+            nz = z * lengthInv;
+            // normals.push_back(nx);
+            // normals.push_back(ny);
+            // normals.push_back(nz);
+            (*vertices).push_back(nx);
+            (*vertices).push_back(ny);
+            (*vertices).push_back(nz);
         }
     }
 
@@ -211,14 +214,14 @@ SphereFactory::SphereFactory(size_t numSectorPerStackLevel, size_t numStackPerSe
 {
 }
 
-std::unique_ptr<Shape> SphereFactory::getSphere(void) {
+std::unique_ptr<Shape> SphereFactory::getSphere(bool isLightSource) {
 
     auto vertices = this->getVertices1();
     auto indices = this->getIndices1();
 
     auto shape = std::make_unique<Shape>((*vertices),(*indices));
     // auto shape = Shape(vertices,indices);
-    (*shape).initShapeWithTexture();
+    (*shape).initShapeWithTexture(isLightSource);
 
     return shape;
 }

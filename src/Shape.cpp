@@ -49,7 +49,7 @@ void Shape::initShape() {
     glBindVertexArray(0);
 }
 
-void Shape::initShapeWithTexture() {
+void Shape::initShapeWithTexture(bool isLightSource) {
     glGenVertexArrays(1,&this->vao);
 
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
@@ -63,11 +63,29 @@ void Shape::initShapeWithTexture() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,this->ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(unsigned int)*this->indices.size(),&this->indices[0],GL_STATIC_DRAW);
     
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,5*sizeof(float),(void*)0);
+    constexpr int vertexAttributeSize = 8*sizeof(float); /*stride*/
+
+    // vertex position
+    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,vertexAttributeSize,(void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1/*offsets*/,2/*count*/,GL_FLOAT,GL_FALSE,/*stride*/5*sizeof(float),(void*)(3*sizeof(float)));
+    //  texture coords
+    glVertexAttribPointer(1/*offsets*/,2/*count*/,GL_FLOAT,GL_FALSE,vertexAttributeSize,(void*)(3*sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    if (!isLightSource){
+        {
+            // normals
+            constexpr int location = 2;
+            constexpr int count = 3;
+            constexpr int type = GL_FLOAT;
+            constexpr int normalized = GL_FALSE;
+            constexpr int offset = 5*sizeof(float);
+            glVertexAttribPointer(location,count,type,normalized,vertexAttributeSize,(void*)offset);
+            glEnableVertexAttribArray(location);
+        }
+
+    }
 
     // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0); 

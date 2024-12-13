@@ -87,6 +87,7 @@ void RenderGroup3D::render(const glm::mat4& projection, const glm::mat4& view) {
 
     (*this->shader).setMat4("projection", projection);
     (*this->shader).setMat4("view", view);
+    (*this->shader).setVec3("lightPos",glm::vec3(1.0f,0.0f,0.0f));
     this->render();
 
 };

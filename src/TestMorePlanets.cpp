@@ -103,7 +103,7 @@ int TestMorePlanets::runTest() {
     // constexpr int sphereGroupID = 1;
 
     auto planetsGroupLoader = PlanetsGroupLoader();
-    auto planetRenderGroups = planetsGroupLoader.getPlanets();
+    auto planetRenderGroups = planetsGroupLoader.getPlanets(window);
 
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::BACKGROUND,std::move( backgroundRenderGroup));
     (*sphereRenderGroupManager).addNewGroup(RenderGroupID::SPHERE,std::move( sphereRenderGroup));
